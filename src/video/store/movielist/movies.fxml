@@ -28,9 +28,9 @@
                 <contextMenu>
                     <ContextMenu styleClass="table-context">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#handleRefresh" text="Refresh" />
-                            <MenuItem mnemonicParsing="false" onAction="#handleBookEditOption" text="Edit" />
-                            <MenuItem mnemonicParsing="false" onAction="#handleBookDeleteOption" text="Delete" />
+                            <MenuItem mnemonicParsing="false" text="Refresh" />
+                            <MenuItem mnemonicParsing="false" text="Edit" />
+                            <MenuItem mnemonicParsing="false" text="Delete" />
                         </items>
                     </ContextMenu>
                 </contextMenu>
