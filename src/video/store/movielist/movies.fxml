@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="rootPane" stylesheets="@../../../../resources/css/theme.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="video.store.movielist.MoviesController">
+<children>
+    <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="525.0" prefWidth="798.0" stylesheets="@../../../../resources/css/theme.css">
+        <children>
+            <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="853.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                <columns>
+                    <TableColumn fx:id="idCol" maxWidth="2500.0" prefWidth="93.59997248649597" text="ID" />
+                    <TableColumn fx:id="titleCol" prefWidth="144.0" text="Naziv" />
+                    <TableColumn fx:id="genreCol" prefWidth="75.0" text="Žanr" />
+                  <TableColumn fx:id="yearCol" prefWidth="130.39996337890625" text="Godina izdanja" />
+                    <TableColumn fx:id="actorCol" prefWidth="158.39996337890625" text="Glavni glumac" />
+                    <TableColumn fx:id="quantityCol" maxWidth="2800.0" prefWidth="116.800048828125" text="Količina" />
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                <contextMenu>
+                    <ContextMenu styleClass="table-context">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#handleRefresh" text="Refresh" />
+                            <MenuItem mnemonicParsing="false" onAction="#handleBookEditOption" text="Edit" />
+                            <MenuItem mnemonicParsing="false" onAction="#handleBookDeleteOption" text="Delete" />
+                        </items>
+                    </ContextMenu>
+                </contextMenu>
+            </TableView>
+            <MenuBar layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="722.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <menus>
+                    <Menu mnemonicParsing="false" text="File">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#closeStage" text="Close" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+        </children>
+    </AnchorPane>
+</children>
+</StackPane>
