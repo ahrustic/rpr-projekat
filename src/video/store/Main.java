@@ -1,4 +1,4 @@
-package sample;
+package video.store;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
