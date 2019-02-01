@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="rootPane" stylesheets="@../../../../resources/css/theme.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="video.store.movielist.MoviesController">
+<StackPane fx:id="rootPane" stylesheets="@/css/theme.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" >
 <children>
-    <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="525.0" prefWidth="798.0" stylesheets="@../../../../resources/css/theme.css">
+    <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="525.0" prefWidth="798.0" stylesheets="@/css/theme.css">
         <children>
             <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="853.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                 <columns>
@@ -39,7 +39,7 @@
                 <menus>
                     <Menu mnemonicParsing="false" text="File">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#closeStage" text="Close" />
+                            <MenuItem mnemonicParsing="false" text="Close" />
                         </items>
                     </Menu>
                 </menus>

@@ -14,7 +14,7 @@ import video.store.classes.Film;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MoviesController implements Initializable {
+public class MovieController implements Initializable {
     ObservableList<Film> list = FXCollections.observableArrayList();
 
     @FXML
