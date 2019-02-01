@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="rootPane" stylesheets="@../../../../resources/css/theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="video.store.memberlist.MemberListController">
+<StackPane fx:id="rootPane" stylesheets="@/css/theme.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="456.0" prefWidth="722.0" stylesheets="@../../../../resources/css/theme.css">
+        <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="456.0" prefWidth="722.0" stylesheets="@/css/theme.css">
             <children>
                 <TableView fx:id="tableView" prefHeight="400.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                     <columns>
-                        <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="idCol" maxWidth="2800.0" prefWidth="60.0" text="Member ID" />
-                        <TableColumn fx:id="mobileCol" prefWidth="75.0" text="Mobile" />
+                        <TableColumn fx:id="idCol" maxWidth="2800.0" prefWidth="60.0" text="ID" />
+                        <TableColumn fx:id="nameCol" prefWidth="75.0" text="Ime i prezime" />
+                        <TableColumn fx:id="mobileCol" prefWidth="75.0" text="Broj telefona" />
                         <TableColumn fx:id="emailCol" prefWidth="75.0" text="Email" />
                     </columns>
                     <columnResizePolicy>
@@ -27,8 +27,8 @@
                         <ContextMenu styleClass="table-context">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Refresh" />
-                                <MenuItem mnemonicParsing="false"  text="Edit" />
-                                <MenuItem mnemonicParsing="false"  text="Delete" />
+                                <MenuItem mnemonicParsing="false" text="Edit" />
+                                <MenuItem mnemonicParsing="false" text="Delete" />
                             </items>
                         </ContextMenu>
                     </contextMenu>
@@ -37,7 +37,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#closeStage" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
                     </menus>
