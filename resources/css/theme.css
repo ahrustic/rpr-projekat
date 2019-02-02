@@ -16,6 +16,13 @@
     -fx-fill: -fx-primarytext;
 }
 
+.validan{
+   -fx-control-inner-background: #adff2f ;
+}
+.nijeValidan{
+   -fx-control-inner-background: #ffb6c1 ;
+}
+
 .button{
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-primary;
