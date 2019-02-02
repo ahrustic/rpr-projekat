@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<?import java.net.URL?>
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <TextField fx:id="idField" layoutX="23.0" layoutY="30.0" prefHeight="40.0" prefWidth="354.0" promptText="ID" />
+      <TextField fx:id="titleField" layoutX="24.0" layoutY="94.0" prefHeight="40.0" prefWidth="354.0" promptText="Naziv" />
+      <TextField fx:id="zanrField" layoutX="23.0" layoutY="158.0" prefHeight="40.0" prefWidth="354.0" promptText="Zanr" />
+      <TextField fx:id="yearField" layoutX="24.0" layoutY="220.0" prefHeight="40.0" prefWidth="354.0" promptText="Godina izdanja" />
+      <TextField fx:id="actorField" layoutX="23.0" layoutY="282.0" prefHeight="40.0" prefWidth="354.0" promptText="Glavni glumac" />
+      <TextField fx:id="kolicinaField" layoutX="23.0" layoutY="345.0" prefHeight="40.0" prefWidth="354.0" promptText="Kolicina" />
+      <Button fx:id="addBtn" layoutX="70.0" layoutY="413.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="88.0" styleClass="login-button" text="Dodaj" />
+      <Button fx:id="izadiBtn" layoutX="234.0" layoutY="413.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="88.0" styleClass="login-button" text="Cancle" />
+   </children>
+   <stylesheets>
+      <URL value="@/css/theme.css" />
+   </stylesheets>
+</AnchorPane>
