@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="138.0" prefWidth="700.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Dodaj admina" />
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Zaduzenja">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Otvori listu" />
+                        <MenuItem mnemonicParsing="false" text="Dodaj" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Film">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Otvori listu" />
+                    <MenuItem mnemonicParsing="false" text="Dodaj " />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Clan">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Otvori listu" />
+                      <MenuItem mnemonicParsing="false" text="Dodaj" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Pomoc">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button fx:id="zaduzenjeBtn" mnemonicParsing="false" prefHeight="26.0" styleClass="login-button" text="Dodaj zaduzenje" />
+                  <Button fx:id="filmBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="121.0" styleClass="login-button" text="Dodaj film" />
+                  <Button fx:id="clanBtn" mnemonicParsing="false" styleClass="login-button" text="Dodaj clana" />
+                  <Button fx:id="issuedBtn" mnemonicParsing="false" styleClass="login-button" text="Zaduzenja" />
+                  <Button fx:id="moviesBtn" mnemonicParsing="false" styleClass="login-button" text="Filmovi" />
+                  <Button fx:id="membersBtn" mnemonicParsing="false" styleClass="login-button" text="Clanovi" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+   </children>
+    <stylesheets>
+        <URL value="@/css/theme.css" />
+    </stylesheets>
+</AnchorPane>
