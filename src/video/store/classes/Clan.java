@@ -1,23 +1,23 @@
 package video.store.classes;
 
 public class Clan {
-   private String id;
+   private int id;
    private String naziv;
    private String email;
    private String brojTelefona;
 
-    public Clan(String id, String name, String email, String mobile) {
+    public Clan(int id, String name, String email, String mobile) {
         this.id = id;
         this.naziv = name;
         this.email = email;
         this.brojTelefona = mobile;
     }
-    
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
