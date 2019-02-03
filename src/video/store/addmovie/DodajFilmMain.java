@@ -17,7 +17,7 @@ public class DodajFilmMain extends Application {
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Dodaj film");
-        primaryStage.setScene(new Scene(root, 400, 500));
+        primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
     }
 
