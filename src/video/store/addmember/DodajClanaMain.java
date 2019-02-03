@@ -17,7 +17,7 @@ public class DodajClanaMain extends Application {
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Dodaj clana");
-        primaryStage.setScene(new Scene(root, 400, 400));
+        primaryStage.setScene(new Scene(root, 400, 350));
         primaryStage.show();
     }
 
