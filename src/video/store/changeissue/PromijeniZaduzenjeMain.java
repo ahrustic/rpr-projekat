@@ -1,11 +1,10 @@
-package video.store.changessue;
+package video.store.changeissue;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import video.store.login.LoginController;
 
 
 public class PromijeniZaduzenjeMain extends Application {

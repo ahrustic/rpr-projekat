@@ -5,7 +5,7 @@ public class Film {
     private int id;
     private String naziv;
     private String zanr;
-    private int godnaIzdanja;
+    private int godinaIzdanja;
     private String glavniGlumac;
     private int kolicina;
 
@@ -13,7 +13,7 @@ public class Film {
         this.id = id;
         this.naziv = naziv;
         this.zanr = zanr;
-        this.godnaIzdanja = godnaIzdanja;
+        this.godinaIzdanja = godnaIzdanja;
         this.glavniGlumac = glavniGlumac;
         this.kolicina = kolicina;
     }
@@ -42,12 +42,12 @@ public class Film {
         this.zanr = zanr;
     }
 
-    public int getGodnaIzdanja() {
-        return godnaIzdanja;
+    public int getGodinaIzdanja() {
+        return godinaIzdanja;
     }
 
-    public void setGodnaIzdanja(int godnaIzdanja) {
-        this.godnaIzdanja = godnaIzdanja;
+    public void setGodinaIzdanja(int godinaIzdanja) {
+        this.godinaIzdanja = godinaIzdanja;
     }
 
     public String getGlavniGlumac() {
