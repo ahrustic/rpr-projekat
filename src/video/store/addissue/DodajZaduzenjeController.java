@@ -92,4 +92,8 @@ public class DodajZaduzenjeController implements Initializable {
         });
 
     }
+
+    public Zaduzenje getZaduzenje() {
+        return zaduzenje;
+    }
 }

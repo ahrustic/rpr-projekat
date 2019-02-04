@@ -143,4 +143,7 @@ public class PromijeniZaduzenjeController implements Initializable {
         return "" + datumZaduzenja;
     }
 
+    public Zaduzenje getZaduzenje() {
+        return zaduzenje;
+    }
 }
