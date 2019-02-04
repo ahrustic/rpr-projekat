@@ -88,7 +88,7 @@ public class MovieController implements Initializable {
             stage.setOnHiding( event -> {
                 Film novifilm = filmController.getFilm();
                 if (novifilm != null) {
-                    dao.promijeniFilm(novifilm);
+                    dao.dodajFilm(novifilm);
                     listaFilmova.setAll(dao.filmovi());
                 }
             } );

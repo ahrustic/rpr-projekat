@@ -48,6 +48,5 @@ public class Clan {
     public void setBrojTelefona(String brojTelefona) {
         this.brojTelefona = brojTelefona;
     }
-    
-    
+
 }

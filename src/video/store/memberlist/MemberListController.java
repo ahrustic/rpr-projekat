@@ -52,7 +52,7 @@ public class MemberListController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory("naziv"));
         mobileCol.setCellValueFactory(new PropertyValueFactory("email"));
-        emailCol.setCellValueFactory(data -> new SimpleStringProperty("brojTelefona"));
+        emailCol.setCellValueFactory(new PropertyValueFactory("brojTelefona"));
 
     }
 
@@ -72,7 +72,7 @@ public class MemberListController implements Initializable {
             stage.setOnHiding( event -> {
                 Clan noviclan = DodajClanaController.getClan();
                 if (noviclan != null) {
-                    dao.promijeniClana(noviclan);
+                    dao.dodajClan(noviclan);
                     listaClanova.setAll(dao.clanovi());
                 }
             } );
