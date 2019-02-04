@@ -82,7 +82,7 @@ public class VideotekaDAO {
             nadjiFilmUpit = connection.prepareStatement("SELECT * FROM film WHERE naziv=?");
             nadjiZaduzenjeUpit = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
 
-            promijeniClanUpit = connection.prepareStatement("UPDATE clan SET naziv=?, email=?, broj_telefona=? WHERE id=?");
+            promijeniClanUpit = connection.prepareStatement("UPDATE clan SET naziv=?, broj_telefona=?, email=? WHERE id=?");
             promijeniFilmUpit = connection.prepareStatement("UPDATE film SET naziv=?, zanr=?, godina_izdanja=?, glavni_glumac=?, kolicina=? WHERE id=?");
             promijeniZaduzenjeUpit = connection.prepareStatement("UPDATE zaduzenje SET film=?, clan=?, datum_zaduzenja=?, datum_razduzenja=? WHERE id=?");
 

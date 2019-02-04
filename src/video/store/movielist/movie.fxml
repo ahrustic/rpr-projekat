@@ -41,19 +41,19 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem fx:id="dodajM" mnemonicParsing="false" text="Dodaj" />
-                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" text="Promijeni" />
-                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" text="Izbrisi" />
-                        <MenuItem fx:id="zatvori" mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionDodajFilm" text="Dodaj" />
+                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionIzmijeniFilm" text="Promijeni" />
+                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionObrisiFilm" text="Izbrisi" />
+                        <MenuItem fx:id="zatvori" mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                      </items>
                   </Menu>
                </menus>
             </MenuBar>
             <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
                <buttons>
-                  <Button fx:id="dodajBtn" mnemonicParsing="false" styleClass="login-button" text="Dodaj" />
-                  <Button fx:id="promijeniBtn" mnemonicParsing="false" styleClass="login-button" text="Promijeni" />
-                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Izbrisi" />
+                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionDodajFilm" styleClass="login-button" text="Dodaj" />
+                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionIzmijeniFilm" styleClass="login-button" text="Promijeni" />
+                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionObrisiFilm" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Izbrisi" />
                </buttons>
             </ButtonBar>
         </children>

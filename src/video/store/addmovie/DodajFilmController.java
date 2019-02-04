@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import video.store.classes.Clan;
 import video.store.classes.Film;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DodajFilmController implements Initializable {
@@ -25,8 +27,17 @@ public class DodajFilmController implements Initializable {
     private boolean ispravnostGlumca;
     private boolean ispravnostKolicine;
     public Film film;
+    private boolean sveOk = true;
 
     public DodajFilmController(){}
+
+    public DodajFilmController(Film film, ArrayList<Film> filmovi) {
+        this.film = film;
+    }
+
+    public  Film getFilm() {
+        return film;
+    }
 
     public void clickCancel(ActionEvent actionEvent) {
         film = null;
@@ -62,6 +73,15 @@ public class DodajFilmController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (film != null) {
+            titleField.setText(film.getNaziv());
+            zanrField.setText(film.getZanr());
+            yearField.setText(Integer.toString(film.getGodinaIzdanja()));
+            actorField.setText(film.getGlavniGlumac());
+            kolicinaField.setText(Integer.toString(film.getKolicina()));
+        }
+
         ispravnostNaziva = false;
         ispravnostZanra = false;
         ispravnostGlumca = false;
@@ -85,7 +105,7 @@ public class DodajFilmController implements Initializable {
                     titleField.getStyleClass().removeAll("validan");
                     titleField.getStyleClass().add("nijeValidan");
                     ispravnostNaziva = false;
-                    //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -102,7 +122,7 @@ public class DodajFilmController implements Initializable {
                     zanrField.getStyleClass().removeAll("validan");
                     zanrField.getStyleClass().add("nijeValidan");
                     ispravnostZanra = false;
-                    //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -119,7 +139,7 @@ public class DodajFilmController implements Initializable {
                     yearField.getStyleClass().removeAll("validan");
                     yearField.getStyleClass().add("nijeValidan");
                     ispravnostGodine = false;
-                    //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -136,7 +156,7 @@ public class DodajFilmController implements Initializable {
                     actorField.getStyleClass().removeAll("validan");
                     actorField.getStyleClass().add("nijeValidan");
                     ispravnostGlumca = false;
-                    //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -153,10 +173,23 @@ public class DodajFilmController implements Initializable {
                     kolicinaField.getStyleClass().removeAll("validan");
                     kolicinaField.getStyleClass().add("nijeValidan");
                     ispravnostKolicine = false;
-                    //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
-
     }
+
+    public void uredu(javafx.event.ActionEvent actionEvent){
+        if (!sveOk) return;
+
+        if (film == null) film = new Film();
+        film.setNaziv(titleField.getText());
+        film.setZanr((zanrField.getText()));
+        film.setGodinaIzdanja(Integer.parseInt(yearField.getText()));
+        film.setGlavniGlumac(actorField.getText());
+        film.setKolicina(Integer.parseInt(kolicinaField.getText()));
+        Stage stage = (Stage) titleField.getScene().getWindow();
+        stage.close();
+    }
+
 }

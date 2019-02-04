@@ -18,6 +18,10 @@ public class Film {
         this.kolicina = kolicina;
     }
 
+    public Film() {
+
+    }
+
     public int getId() {
         return id;
     }
