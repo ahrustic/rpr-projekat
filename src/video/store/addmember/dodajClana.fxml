@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <TextField fx:id="nameField" layoutX="39.0" layoutY="38.0" prefHeight="42.0" prefWidth="322.0" promptText="Ime i Prezime" />
       <TextField fx:id="mobileField" layoutX="38.0" layoutY="112.0" prefHeight="42.0" prefWidth="322.0" promptText="Broj telefona" />
       <TextField fx:id="emailField" layoutX="38.0" layoutY="185.0" prefHeight="42.0" prefWidth="322.0" promptText="Email" />
-      <Button fx:id="dodajBtn" layoutX="69.0" layoutY="262.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="87.0" styleClass="login-button" text="Dodaj" />
+      <Button fx:id="dodajBtn" layoutX="69.0" layoutY="262.0" mnemonicParsing="false" onAction="#uredu" prefHeight="42.0" prefWidth="87.0" styleClass="login-button" text="OK" />
       <Button fx:id="izadiBtn" layoutX="240.0" layoutY="263.0" mnemonicParsing="false" onAction="#clickCancel" prefHeight="42.0" prefWidth="87.0" styleClass="login-button" text="Cancle" />
    </children>
     <stylesheets>

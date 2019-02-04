@@ -10,6 +10,7 @@ import video.store.classes.Clan;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,9 +23,24 @@ public class DodajClanaController implements Initializable {
     private boolean ispravnostNaziva;
     private boolean ispravnostTelefona;
     private boolean ispravnostEmaila;
-    public Clan clan;
+    private Clan clan;
+    private static Clan clan2;
+    private ArrayList<Clan> clanovi;
+    private boolean sveOk = true;
 
     public DodajClanaController(){}
+
+    public DodajClanaController(Clan clan, ArrayList<Clan> clanovi) {
+        this.clan = clan;
+        this.clan2 = clan;
+        this.clanovi = clanovi;
+
+    }
+
+    public static Clan getClan() {
+        return clan2;
+    }
+
 
     public void clickCancel(ActionEvent actionEvent) {
         clan = null;
@@ -63,6 +79,13 @@ public class DodajClanaController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (clan != null){
+            nameField.setText(clan.getNaziv());
+            mobileField.setText(clan.getBrojTelefona());
+            emailField.setText(clan.getEmail());
+        }
+
         ispravnostNaziva = false;
         nameField.getStyleClass().add("nijeValidan");
         ispravnostEmaila = false;
@@ -82,7 +105,7 @@ public class DodajClanaController implements Initializable {
                     nameField.getStyleClass().removeAll("validan");
                     nameField.getStyleClass().add("nijeValidan");
                     ispravnostNaziva = false;
-                  //  sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -100,7 +123,7 @@ public class DodajClanaController implements Initializable {
                     emailField.getStyleClass().removeAll("validan");
                     emailField.getStyleClass().add("nijeValidan");
                     ispravnostEmaila = false;
-                   // sveOk = false;
+                    sveOk = false;
                 }
             }
         });
@@ -118,9 +141,22 @@ public class DodajClanaController implements Initializable {
                     mobileField.getStyleClass().removeAll("validan");
                     mobileField.getStyleClass().add("nijeValidan");
                     ispravnostTelefona = false;
-                   // sveOk = false;
+                    sveOk = false;
                 }
             }
         });
+
+
+    }
+
+    public void uredu(javafx.event.ActionEvent actionEvent){
+        if (!sveOk) return;
+
+        if (clan == null) clan = new Clan();
+        clan.setNaziv(nameField.getText());
+        clan.setBrojTelefona((mobileField.getText()));
+        clan.setEmail(emailField.getText());
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 }
