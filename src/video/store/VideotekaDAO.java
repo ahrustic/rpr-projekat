@@ -46,11 +46,11 @@ public class VideotekaDAO {
             //e.printStackTrace();
         }
         try {
-            getFilmoviUpit = connection.prepareStatement("SELECT * FROM film");
+            getClanoviUpit = connection.prepareStatement("SELECT * FROM clan");
         }catch (SQLException e) {
             regenerisiBazu();
             try {
-                getFilmoviUpit = connection.prepareStatement("SELECT * FROM film");
+                getClanoviUpit = connection.prepareStatement("SELECT * FROM clan");
             } catch (SQLException e1) {
                 //e1.printStackTrace();
             }
@@ -246,8 +246,8 @@ public class VideotekaDAO {
 
             dodajClanUpit.setInt(1, id);
             dodajClanUpit.setString(2, clan.getNaziv());
-            dodajClanUpit.setString(3, clan.getEmail());
-            dodajClanUpit.setString(4, clan.getBrojTelefona());
+            dodajClanUpit.setString(3, clan.getBrojTelefona());
+            dodajClanUpit.setString(4, clan.getEmail());
             dodajClanUpit.executeUpdate();
 
         } catch (SQLException e) {
@@ -266,7 +266,7 @@ public class VideotekaDAO {
             dodajFilmUpit.setInt(1, id);
             dodajFilmUpit.setString(2, film.getNaziv());
             dodajFilmUpit.setString(3, film.getZanr());
-            dodajFilmUpit.setInt(4, film.getGodnaIzdanja());
+            dodajFilmUpit.setInt(4, film.getGodinaIzdanja());
             dodajFilmUpit.setString(5, film.getGlavniGlumac());
             dodajFilmUpit.setInt(6, film.getKolicina());
 
@@ -337,8 +337,8 @@ public class VideotekaDAO {
         try {
 
             promijeniClanUpit.setString(1, clan.getNaziv());
-            promijeniClanUpit.setString(2, clan.getEmail());
-            promijeniClanUpit.setString(3, clan.getBrojTelefona());
+            promijeniClanUpit.setString(2, clan.getBrojTelefona());
+            promijeniClanUpit.setString(3, clan.getEmail());
             promijeniClanUpit.setInt(4, clan.getId());
             promijeniClanUpit.executeUpdate();
 
@@ -353,7 +353,7 @@ public class VideotekaDAO {
 
             promijeniFilmUpit.setString(1, film.getNaziv());
             promijeniFilmUpit.setString(2, film.getZanr());
-            promijeniFilmUpit.setInt(3, film.getGodnaIzdanja());
+            promijeniFilmUpit.setInt(3, film.getGodinaIzdanja());
             promijeniFilmUpit.setString(4, film.getGlavniGlumac());
             promijeniFilmUpit.setInt(5, film.getKolicina());
             promijeniFilmUpit.setInt(6, film.getId());
