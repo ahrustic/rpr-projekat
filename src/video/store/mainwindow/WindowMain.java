@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 
 public class WindowMain extends Application {
 
@@ -16,7 +18,7 @@ public class WindowMain extends Application {
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root, 700, 450));
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
     }
 
