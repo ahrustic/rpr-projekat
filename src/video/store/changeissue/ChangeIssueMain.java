@@ -7,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class PromijeniZaduzenjeMain extends Application {
+public class ChangeIssueMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("promijeniZaduzenje.fxml"));
-        PromijeniZaduzenjeController ctrl = new PromijeniZaduzenjeController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("changeIssue.fxml"));
+        ChangeIssueController ctrl = new ChangeIssueController();
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Promijeni zaduzenje");

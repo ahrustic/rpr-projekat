@@ -11,9 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
-import video.store.classes.Clan;
-import video.store.classes.Film;
-import video.store.classes.Zaduzenje;
+import video.store.classes.Issued;
+import video.store.classes.Member;
+import video.store.classes.Movie;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -21,12 +21,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class PromijeniZaduzenjeController implements Initializable {
+public class ChangeIssueController implements Initializable {
 
     @FXML
-    private ComboBox<Clan> clanCombo = new ComboBox<>();
+    private ComboBox<Member> clanCombo = new ComboBox<>();
     @FXML
-    private ComboBox<Film> filmCombo = new ComboBox<>();
+    private ComboBox<Movie> filmCombo = new ComboBox<>();
     @FXML
     private DatePicker zaduzenjeDate;
     @FXML
@@ -35,29 +35,29 @@ public class PromijeniZaduzenjeController implements Initializable {
     private Button dodajBtn;
     @FXML
     private Button cancleBtn;
-    private Zaduzenje zaduzenje;
+    private Issued issued;
     private boolean ispravnostZaduzenje = false;
     private boolean ispravnostRazduzenja = false;
-    public ObservableList<Clan> listaClanova;
-    public ObservableList<Film> listaFilmova;
-    public Film film;
-    public Clan clan;
+    public ObservableList<Member> listaClanova;
+    public ObservableList<Movie> listaFilmova;
+    public Movie movie;
+    public Member member;
 
 
-    public PromijeniZaduzenjeController(Zaduzenje zaduzenje, ArrayList<Film> f, ArrayList<Clan> c){
-        this.zaduzenje = zaduzenje;
+    public ChangeIssueController(Issued issued, ArrayList<Movie> f, ArrayList<Member> c){
+        this.issued = issued;
         listaClanova = FXCollections.observableArrayList(c);
         listaFilmova = FXCollections.observableArrayList(f);
         clanCombo.setItems(listaClanova);
         filmCombo.setItems(listaFilmova);
     }
 
-    public PromijeniZaduzenjeController() {
+    public ChangeIssueController() {
     }
 
 
     public void clickCancel(ActionEvent actionEvent) {
-        zaduzenje = null;
+        issued = null;
         Stage stage = (Stage) clanCombo.getScene().getWindow();
         stage.close();
     }
@@ -86,18 +86,18 @@ public class PromijeniZaduzenjeController implements Initializable {
         clanCombo.setItems(listaClanova);
         filmCombo.setItems(listaFilmova);
 
-        if(zaduzenje != null){
-            zaduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(zaduzenje.getDatumZaduzenja()))));
-            razduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(zaduzenje.getDatumRazduzenja()))));
-            for (Clan c : listaClanova)
-                if (c.getId() == zaduzenje.getClan().getId()) {
+        if(issued != null){
+            zaduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDatumZaduzenja()))));
+            razduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDatumRazduzenja()))));
+            for (Member c : listaClanova)
+                if (c.getId() == issued.getMember().getId()) {
                     clanCombo.getSelectionModel().select(c);
-                    clanCombo.setPromptText(String.valueOf(new Clan(c.getId(), c.getNaziv(), c.getEmail(), c.getBrojTelefona())));
+                    clanCombo.setPromptText(String.valueOf(new Member(c.getId(), c.getNaziv(), c.getEmail(), c.getBrojTelefona())));
                 }
-            for (Film f : listaFilmova)
-                if (f.getId() == zaduzenje.getFilm().getId()) {
+            for (Movie f : listaFilmova)
+                if (f.getId() == issued.getMovie().getId()) {
                     filmCombo.getSelectionModel().select(f);
-                    filmCombo.setPromptText(String.valueOf(new Film(f.getId(), f.getNaziv(), f.getZanr(), f.getGodinaIzdanja(), f.getGlavniGlumac(), f.getKolicina())));
+                    filmCombo.setPromptText(String.valueOf(new Movie(f.getId(), f.getNaziv(), f.getZanr(), f.getGodinaIzdanja(), f.getGlavniGlumac(), f.getKolicina())));
                 }
 
 
@@ -143,7 +143,7 @@ public class PromijeniZaduzenjeController implements Initializable {
         return "" + datumZaduzenja;
     }
 
-    public Zaduzenje getZaduzenje() {
-        return zaduzenje;
+    public Issued getIssued() {
+        return issued;
     }
 }

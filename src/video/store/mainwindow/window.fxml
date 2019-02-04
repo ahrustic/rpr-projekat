@@ -49,8 +49,8 @@
             </MenuBar>
          </children>
       </VBox>
-      <Button fx:id="zaduzenjeBtn" layoutX="25.0" layoutY="86.0" mnemonicParsing="false" onAction="#actionDodajZaduzenje" prefHeight="78.0" prefWidth="153.0" styleClass="login-button" text="Dodaj zaduzenje" />
-      <Button fx:id="filmBtn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionDodajFilm" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Dodaj film" />
+      <Button fx:id="zaduzenjeBtn" layoutX="25.0" layoutY="86.0" mnemonicParsing="false" onAction="#actionDodajZaduzenje" prefHeight="78.0" prefWidth="153.0" styleClass="login-button" text="Dodaj issued" />
+      <Button fx:id="filmBtn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionDodajFilm" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Dodaj movie" />
       <Button fx:id="clanBtn" layoutX="219.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionDodajClan" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Dodaj clana" />
       <Button fx:id="issuedBtn" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#listaZaduzenja" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Zaduzenja" />
       <Button fx:id="moviesBtn" layoutX="408.0" layoutY="287.0" mnemonicParsing="false" onAction="#listaFilmova" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Filmovi" />

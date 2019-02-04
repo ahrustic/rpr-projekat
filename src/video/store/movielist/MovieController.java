@@ -16,13 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import video.store.VideotekaDAO;
-import video.store.addmember.DodajClanaController;
-import video.store.addmovie.DodajFilmController;
-import video.store.classes.Clan;
-import video.store.classes.Film;
+import video.store.VideoStoreDAO;
+import video.store.addmovie.AddMovieController;
+import video.store.classes.Movie;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -31,31 +28,31 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class MovieController implements Initializable {
-    ObservableList<Film> listaFilmova;
+    ObservableList<Movie> listaFilmova;
 
     @FXML
     private StackPane rootPane;
     @FXML
-    private TableView<Film> tableView;
+    private TableView<Movie> tableView;
     @FXML
-    private TableColumn<Film, String> titleCol;
+    private TableColumn<Movie, String> titleCol;
     @FXML
-    private TableColumn<Film, Integer> idCol;
+    private TableColumn<Movie, Integer> idCol;
     @FXML
-    private TableColumn<Film, String> actorCol;
+    private TableColumn<Movie, String> actorCol;
     @FXML
-    private TableColumn<Film, Integer> yearCol;
+    private TableColumn<Movie, Integer> yearCol;
     @FXML
-    private TableColumn<Film, Integer> quantityCol;
+    private TableColumn<Movie, Integer> quantityCol;
     @FXML
-    private TableColumn<Film, String> genreCol;
+    private TableColumn<Movie, String> genreCol;
     @FXML
     private AnchorPane contentPane;
 
-    private VideotekaDAO dao;
+    private VideoStoreDAO dao;
 
     public MovieController() {
-        dao = VideotekaDAO.getInstance();
+        dao = VideoStoreDAO.getInstance();
         listaFilmova = FXCollections.observableArrayList(dao.filmovi());
     }
 
@@ -76,17 +73,17 @@ public class MovieController implements Initializable {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/dodajFilm.fxml"));
-            DodajFilmController filmController = new DodajFilmController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/addMovie.fxml"));
+            AddMovieController filmController = new AddMovieController();
             loader.setController(filmController);
             root = loader.load();
-            stage.setTitle("Dodaj film");
+            stage.setTitle("Dodaj movie");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Film novifilm = filmController.getFilm();
+                Movie novifilm = filmController.getMovie();
                 if (novifilm != null) {
                     dao.dodajFilm(novifilm);
                     listaFilmova.setAll(dao.filmovi());
@@ -98,23 +95,23 @@ public class MovieController implements Initializable {
     }
 
     public void actionIzmijeniFilm(ActionEvent actionEvent){
-        Film film = tableView.getSelectionModel().getSelectedItem();
-        if (film == null) return;
+        Movie movie = tableView.getSelectionModel().getSelectedItem();
+        if (movie == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/dodajFilm.fxml"));
-            DodajFilmController filmController = new DodajFilmController(film, dao.filmovi());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/addMovie.fxml"));
+            AddMovieController filmController = new AddMovieController(movie, dao.filmovi());
             loader.setController(filmController);
             root = loader.load();
-            stage.setTitle("Promijeni film");
+            stage.setTitle("Promijeni movie");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Film novifilm = filmController.getFilm();
+                Movie novifilm = filmController.getMovie();
                 if (novifilm != null) {
                     dao.promijeniFilm(novifilm);
                     listaFilmova.setAll(dao.filmovi());
@@ -126,17 +123,17 @@ public class MovieController implements Initializable {
     }
 
     public void actionObrisiFilm(ActionEvent actionEvent) {
-        Film film = tableView.getSelectionModel().getSelectedItem();
-        if (film == null) return;
+        Movie movie = tableView.getSelectionModel().getSelectedItem();
+        if (movie == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrda brisanja");
-        alert.setHeaderText("Brisanje film "+ film.getNaziv());
-        alert.setContentText("Da li ste sigurni da želite obrisati film " + film.getNaziv()+ "?");
+        alert.setHeaderText("Brisanje movie "+ movie.getNaziv());
+        alert.setContentText("Da li ste sigurni da želite obrisati movie " + movie.getNaziv()+ "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiFilm(film);
+            dao.obrisiFilm(movie);
             listaFilmova.setAll(dao.filmovi());
         }
     }

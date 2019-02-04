@@ -6,15 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import video.store.classes.Clan;
-import video.store.classes.Film;
+import video.store.classes.Movie;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class DodajFilmController implements Initializable {
+public class AddMovieController implements Initializable {
 
     public TextField titleField;
     public TextField zanrField;
@@ -26,21 +25,21 @@ public class DodajFilmController implements Initializable {
     private boolean ispravnostGodine;
     private boolean ispravnostGlumca;
     private boolean ispravnostKolicine;
-    public Film film;
+    public Movie movie;
     private boolean sveOk = true;
 
-    public DodajFilmController(){}
+    public AddMovieController(){}
 
-    public DodajFilmController(Film film, ArrayList<Film> filmovi) {
-        this.film = film;
+    public AddMovieController(Movie movie, ArrayList<Movie> filmovi) {
+        this.movie = movie;
     }
 
-    public  Film getFilm() {
-        return film;
+    public Movie getMovie() {
+        return movie;
     }
 
     public void clickCancel(ActionEvent actionEvent) {
-        film = null;
+        movie = null;
         Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();
     }
@@ -74,12 +73,12 @@ public class DodajFilmController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (film != null) {
-            titleField.setText(film.getNaziv());
-            zanrField.setText(film.getZanr());
-            yearField.setText(Integer.toString(film.getGodinaIzdanja()));
-            actorField.setText(film.getGlavniGlumac());
-            kolicinaField.setText(Integer.toString(film.getKolicina()));
+        if (movie != null) {
+            titleField.setText(movie.getNaziv());
+            zanrField.setText(movie.getZanr());
+            yearField.setText(Integer.toString(movie.getGodinaIzdanja()));
+            actorField.setText(movie.getGlavniGlumac());
+            kolicinaField.setText(Integer.toString(movie.getKolicina()));
         }
 
         ispravnostNaziva = false;
@@ -182,12 +181,12 @@ public class DodajFilmController implements Initializable {
     public void uredu(javafx.event.ActionEvent actionEvent){
         if (!sveOk) return;
 
-        if (film == null) film = new Film();
-        film.setNaziv(titleField.getText());
-        film.setZanr((zanrField.getText()));
-        film.setGodinaIzdanja(Integer.parseInt(yearField.getText()));
-        film.setGlavniGlumac(actorField.getText());
-        film.setKolicina(Integer.parseInt(kolicinaField.getText()));
+        if (movie == null) movie = new Movie();
+        movie.setNaziv(titleField.getText());
+        movie.setZanr((zanrField.getText()));
+        movie.setGodinaIzdanja(Integer.parseInt(yearField.getText()));
+        movie.setGlavniGlumac(actorField.getText());
+        movie.setKolicina(Integer.parseInt(kolicinaField.getText()));
         Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();
     }

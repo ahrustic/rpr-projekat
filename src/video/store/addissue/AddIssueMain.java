@@ -1,4 +1,4 @@
-package video.store.login;
+package video.store.addissue;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,16 +7,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class LoginMain extends Application {
+public class AddIssueMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-        LoginController ctrl = new LoginController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addIssue.fxml"));
+        AddIssueController ctrl = new AddIssueController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root, 400, 400));
+        primaryStage.setTitle("Dodaj zaduzenje");
+        primaryStage.setScene(new Scene(root, 400, 350));
         primaryStage.show();
     }
 

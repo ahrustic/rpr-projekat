@@ -1,6 +1,6 @@
 package video.store.classes;
 
-public class Film {
+public class Movie {
 
     private int id;
     private String naziv;
@@ -9,7 +9,7 @@ public class Film {
     private String glavniGlumac;
     private int kolicina;
 
-    public Film(int id, String naziv, String zanr, int godnaIzdanja, String glavniGlumac, int kolicina) {
+    public Movie(int id, String naziv, String zanr, int godnaIzdanja, String glavniGlumac, int kolicina) {
         this.id = id;
         this.naziv = naziv;
         this.zanr = zanr;
@@ -18,7 +18,7 @@ public class Film {
         this.kolicina = kolicina;
     }
 
-    public Film() {
+    public Movie() {
 
     }
 

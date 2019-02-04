@@ -7,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class DodajClanaMain extends Application {
+public class AddMemberMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("dodajClana.fxml"));
-        DodajClanaController ctrl = new DodajClanaController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addMember.fxml"));
+        AddMemberController ctrl = new AddMemberController();
         loader.setController(ctrl);
         Parent root = loader.load();
         primaryStage.setTitle("Dodaj clana");

@@ -10,11 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import video.store.classes.Clan;
-import video.store.classes.Film;
-import video.store.classes.Zaduzenje;
+import video.store.classes.Issued;
+import video.store.classes.Member;
+import video.store.classes.Movie;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -23,39 +22,39 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class DodajZaduzenjeController implements Initializable {
+public class AddIssueController implements Initializable {
 
 
     @FXML
-    private ComboBox<Clan> clanCombo = new ComboBox<>();
+    private ComboBox<Member> clanCombo = new ComboBox<>();
     @FXML
-    private ComboBox<Film> filmCombo = new ComboBox<>();
+    private ComboBox<Movie> filmCombo = new ComboBox<>();
     @FXML
     private DatePicker zaduzenjeDate;
     @FXML
     private Button dodajBtn;
     @FXML
     private Button cancleBtn;
-    private Zaduzenje zaduzenje;
+    private Issued issued;
     private boolean ispravnostZaduzenje = false;
-    public ObservableList<Clan> listaClanova;
-    public ObservableList<Film> listaFilmova;
+    public ObservableList<Member> listaClanova;
+    public ObservableList<Movie> listaFilmova;
 
 
-    public DodajZaduzenjeController(Zaduzenje zaduzenje, ArrayList<Film> f, ArrayList<Clan> c){
-        this.zaduzenje = zaduzenje;
+    public AddIssueController(Issued issued, ArrayList<Movie> f, ArrayList<Member> c){
+        this.issued = issued;
         listaClanova = FXCollections.observableArrayList(c);
         listaFilmova = FXCollections.observableArrayList(f);
         clanCombo.setItems(listaClanova);
         filmCombo.setItems(listaFilmova);
     }
 
-    public DodajZaduzenjeController() {
+    public AddIssueController() {
     }
 
 
     public void clickCancel(ActionEvent actionEvent) {
-        zaduzenje = null;
+        issued = null;
         Stage stage = (Stage) clanCombo.getScene().getWindow();
         stage.close();
     }
@@ -93,7 +92,7 @@ public class DodajZaduzenjeController implements Initializable {
 
     }
 
-    public Zaduzenje getZaduzenje() {
-        return zaduzenje;
+    public Issued getIssued() {
+        return issued;
     }
 }

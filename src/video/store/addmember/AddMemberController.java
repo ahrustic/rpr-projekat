@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import video.store.classes.Clan;
+import video.store.classes.Member;
 
 
 import java.net.URL;
@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DodajClanaController implements Initializable {
+public class AddMemberController implements Initializable {
 
     public TextField nameField;
     public TextField mobileField;
@@ -23,27 +23,27 @@ public class DodajClanaController implements Initializable {
     private boolean ispravnostNaziva;
     private boolean ispravnostTelefona;
     private boolean ispravnostEmaila;
-    private Clan clan;
-    private static Clan clan2;
-    private ArrayList<Clan> clanovi;
+    private Member member;
+    private static Member member2;
+    private ArrayList<Member> clanovi;
     private boolean sveOk = true;
 
-    public DodajClanaController(){}
+    public AddMemberController(){}
 
-    public DodajClanaController(Clan clan, ArrayList<Clan> clanovi) {
-        this.clan = clan;
-        this.clan2 = clan;
+    public AddMemberController(Member member, ArrayList<Member> clanovi) {
+        this.member = member;
+        this.member2 = member;
         this.clanovi = clanovi;
 
     }
 
-    public static Clan getClan() {
-        return clan2;
+    public static Member getClan() {
+        return member2;
     }
 
 
     public void clickCancel(ActionEvent actionEvent) {
-        clan = null;
+        member = null;
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
     }
@@ -80,10 +80,10 @@ public class DodajClanaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (clan != null){
-            nameField.setText(clan.getNaziv());
-            mobileField.setText(clan.getBrojTelefona());
-            emailField.setText(clan.getEmail());
+        if (member != null){
+            nameField.setText(member.getNaziv());
+            mobileField.setText(member.getBrojTelefona());
+            emailField.setText(member.getEmail());
         }
 
         ispravnostNaziva = false;
@@ -152,10 +152,10 @@ public class DodajClanaController implements Initializable {
     public void uredu(javafx.event.ActionEvent actionEvent){
         if (!sveOk) return;
 
-        if (clan == null) clan = new Clan();
-        clan.setNaziv(nameField.getText());
-        clan.setBrojTelefona((mobileField.getText()));
-        clan.setEmail(emailField.getText());
+        if (member == null) member = new Member();
+        member.setNaziv(nameField.getText());
+        member.setBrojTelefona((mobileField.getText()));
+        member.setEmail(emailField.getText());
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
     }

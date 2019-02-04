@@ -2,18 +2,18 @@ package video.store.classes;
 
 import java.time.LocalDate;
 
-public class Zaduzenje {
+public class Issued {
 
     private int id;
-    private Clan clan;
-    private Film film;
+    private Member member;
+    private Movie movie;
     private LocalDate datumZaduzenja;
     private LocalDate datumRazduzenja;
 
-    public Zaduzenje(int id, Clan clan, Film film, LocalDate datumZaduzenja, LocalDate datumRazduzenja) {
+    public Issued(int id, Member member, Movie movie, LocalDate datumZaduzenja, LocalDate datumRazduzenja) {
         this.id = id;
-        this.clan = clan;
-        this.film = film;
+        this.member = member;
+        this.movie = movie;
         this.datumZaduzenja = datumZaduzenja;
         this.datumRazduzenja = datumRazduzenja;
     }
@@ -26,20 +26,20 @@ public class Zaduzenje {
         this.id = id;
     }
 
-    public Clan getClan() {
-        return clan;
+    public Member getMember() {
+        return member;
     }
 
-    public void setClan(Clan clan) {
-        this.clan = clan;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    public Film getFilm() {
-        return film;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public LocalDate getDatumZaduzenja() {

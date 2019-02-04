@@ -1,8 +1,8 @@
 package video.store;
 
-import video.store.classes.Clan;
-import video.store.classes.Film;
-import video.store.classes.Zaduzenje;
+import video.store.classes.Issued;
+import video.store.classes.Member;
+import video.store.classes.Movie;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,9 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class VideotekaDAO {
+public class VideoStoreDAO {
 
-    public static VideotekaDAO instance = null;
+    public static VideoStoreDAO instance = null;
     public Connection connection;
 
     private PreparedStatement getFilmoviUpit, dajFilmUpit, dajClanUpit, dajZaduzenjeUpit, getClanoviUpit, getZaduzenjaUpit,
@@ -20,8 +20,8 @@ public class VideotekaDAO {
                               odrediIdFilmaUpit, odrediIdZaduzenjaUpit, nadjiClanaUpit, nadjiFilmUpit, nadjiZaduzenjeUpit, promijeniClanUpit,
                               promijeniFilmUpit, promijeniZaduzenjeUpit;
 
-    public  static VideotekaDAO getInstance(){
-        if (instance == null) instance = new VideotekaDAO();
+    public  static VideoStoreDAO getInstance(){
+        if (instance == null) instance = new VideoStoreDAO();
         return instance;
     }
 
@@ -39,52 +39,52 @@ public class VideotekaDAO {
         }
     }
 
-    public VideotekaDAO(){
+    public VideoStoreDAO(){
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:videostore.db");
         }catch (SQLException e) {
             //e.printStackTrace();
         }
         try {
-            getClanoviUpit = connection.prepareStatement("SELECT * FROM clan");
+            getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
         }catch (SQLException e) {
             regenerisiBazu();
             try {
-                getClanoviUpit = connection.prepareStatement("SELECT * FROM clan");
+                getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
             } catch (SQLException e1) {
                 //e1.printStackTrace();
             }
         }
 
         try{
-            dajClanUpit = connection.prepareStatement("SELECT * FROM clan WHERE id=?");
-            dajFilmUpit = connection.prepareStatement("SELECT * FROM film WHERE id=?");
-            dajZaduzenjeUpit = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
+            dajClanUpit = connection.prepareStatement("SELECT * FROM member WHERE id=?");
+            dajFilmUpit = connection.prepareStatement("SELECT * FROM movie WHERE id=?");
+            dajZaduzenjeUpit = connection.prepareStatement("SELECT * FROM issued WHERE id=?");
 
 
-            getClanoviUpit = connection.prepareStatement("SELECT * FROM clan");
-            getFilmoviUpit = connection.prepareStatement("SELECT * FROM film");
-            getZaduzenjaUpit = connection.prepareStatement("SELECT * FROM zaduzenje");
+            getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
+            getFilmoviUpit = connection.prepareStatement("SELECT * FROM movie");
+            getZaduzenjaUpit = connection.prepareStatement("SELECT * FROM issued");
 
-            obrisiClanUpit = connection.prepareStatement("DELETE FROM clan WHERE id=?");
-            obrisiFilmUpit = connection.prepareStatement("DELETE FROM film WHERE id=?");
-            obrisiZaduzenjeUpit = connection.prepareStatement("DELETE FROM zaduzenje WHERE id=?");
+            obrisiClanUpit = connection.prepareStatement("DELETE FROM member WHERE id=?");
+            obrisiFilmUpit = connection.prepareStatement("DELETE FROM movie WHERE id=?");
+            obrisiZaduzenjeUpit = connection.prepareStatement("DELETE FROM issued WHERE id=?");
 
-            dodajClanUpit = connection.prepareStatement("INSERT INTO clan VALUES(?,?,?,?)");
-            dodajFilmUpit = connection.prepareStatement("INSERT INTO film VALUES(?,?,?,?,?,?)");
-            dodajZaduzenjeUpit = connection.prepareStatement("INSERT INTO zaduzenje VALUES(?,?,?,?,?)");
+            dodajClanUpit = connection.prepareStatement("INSERT INTO member VALUES(?,?,?,?)");
+            dodajFilmUpit = connection.prepareStatement("INSERT INTO movie VALUES(?,?,?,?,?,?)");
+            dodajZaduzenjeUpit = connection.prepareStatement("INSERT INTO issued VALUES(?,?,?,?,?)");
 
-            odrediIdClanaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM clan");
-            odrediIdFilmaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM film");
-            odrediIdZaduzenjaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM zaduzenje");
+            odrediIdClanaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM member");
+            odrediIdFilmaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM movie");
+            odrediIdZaduzenjaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM issued");
 
-            nadjiClanaUpit = connection.prepareStatement("SELECT * FROM clan WHERE naziv=?");
-            nadjiFilmUpit = connection.prepareStatement("SELECT * FROM film WHERE naziv=?");
+            nadjiClanaUpit = connection.prepareStatement("SELECT * FROM member WHERE naziv=?");
+            nadjiFilmUpit = connection.prepareStatement("SELECT * FROM movie WHERE naziv=?");
             nadjiZaduzenjeUpit = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
 
-            promijeniClanUpit = connection.prepareStatement("UPDATE clan SET naziv=?, broj_telefona=?, email=? WHERE id=?");
-            promijeniFilmUpit = connection.prepareStatement("UPDATE film SET naziv=?, zanr=?, godina_izdanja=?, glavni_glumac=?, kolicina=? WHERE id=?");
-            promijeniZaduzenjeUpit = connection.prepareStatement("UPDATE zaduzenje SET film=?, clan=?, datum_zaduzenja=?, datum_razduzenja=? WHERE id=?");
+            promijeniClanUpit = connection.prepareStatement("UPDATE member SET naziv=?, broj_telefona=?, email=? WHERE id=?");
+            promijeniFilmUpit = connection.prepareStatement("UPDATE movie SET naziv=?, zanr=?, godina_izdanja=?, glavni_glumac=?, kolicina=? WHERE id=?");
+            promijeniZaduzenjeUpit = connection.prepareStatement("UPDATE issued SET movie=?, member=?, datum_zaduzenja=?, datum_razduzenja=? WHERE id=?");
 
 
         } catch (SQLException e) {
@@ -116,7 +116,7 @@ public class VideotekaDAO {
         }
     }
 
-    private Clan dajClan(int id) {
+    private Member dajClan(int id) {
         try {
             dajClanUpit.setInt(1, id);
             ResultSet rs = dajClanUpit.executeQuery();
@@ -129,11 +129,11 @@ public class VideotekaDAO {
 
     }
 
-    private Clan dajClanIzResultSeta(ResultSet rs) throws SQLException {
-        return new Clan(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+    private Member dajClanIzResultSeta(ResultSet rs) throws SQLException {
+        return new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
     }
 
-    private Film dajFilm(int id) {
+    private Movie dajFilm(int id) {
         try {
             dajFilmUpit.setInt(1, id);
             ResultSet rs = dajFilmUpit.executeQuery();
@@ -146,11 +146,11 @@ public class VideotekaDAO {
 
     }
 
-    private Film dajFilmIzResultSeta(ResultSet rs) throws SQLException {
-        return new Film(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
+    private Movie dajFilmIzResultSeta(ResultSet rs) throws SQLException {
+        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
     }
 
-    private Zaduzenje dajZaduzenje(int id) {
+    private Issued dajZaduzenje(int id) {
         try {
             dajZaduzenjeUpit.setInt(1, id);
             ResultSet rs = dajZaduzenjeUpit.executeQuery();
@@ -163,17 +163,17 @@ public class VideotekaDAO {
 
     }
 
-    private Zaduzenje dajZaduzenjeIzResultSeta(ResultSet rs) throws SQLException {
-        return new Zaduzenje(rs.getInt(1), dajClan(rs.getInt(2)), dajFilm(rs.getInt(3)) , rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate());
+    private Issued dajZaduzenjeIzResultSeta(ResultSet rs) throws SQLException {
+        return new Issued(rs.getInt(1), dajClan(rs.getInt(2)), dajFilm(rs.getInt(3)) , rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate());
     }
 
-    public ArrayList<Film> filmovi() {
-        ArrayList<Film> rezultat = new ArrayList();
+    public ArrayList<Movie> filmovi() {
+        ArrayList<Movie> rezultat = new ArrayList();
         try {
             ResultSet rs = getFilmoviUpit.executeQuery();
             while (rs.next()) {
-                Film film = dajFilmIzResultSeta(rs);
-                rezultat.add(film);
+                Movie movie = dajFilmIzResultSeta(rs);
+                rezultat.add(movie);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,13 +181,13 @@ public class VideotekaDAO {
         return rezultat;
     }
 
-    public ArrayList<Clan> clanovi() {
-        ArrayList<Clan> rezultat = new ArrayList();
+    public ArrayList<Member> clanovi() {
+        ArrayList<Member> rezultat = new ArrayList();
         try {
             ResultSet rs = getClanoviUpit.executeQuery();
             while (rs.next()) {
-                Clan clan = dajClanIzResultSeta(rs);
-                rezultat.add(clan);
+                Member member = dajClanIzResultSeta(rs);
+                rezultat.add(member);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,13 +195,13 @@ public class VideotekaDAO {
         return rezultat;
     }
 
-    public ArrayList<Zaduzenje> zaduzenja() {
-        ArrayList<Zaduzenje> rezultat = new ArrayList();
+    public ArrayList<Issued> zaduzenja() {
+        ArrayList<Issued> rezultat = new ArrayList();
         try {
             ResultSet rs = getZaduzenjaUpit.executeQuery();
             while (rs.next()) {
-                Zaduzenje zaduzenje = dajZaduzenjeIzResultSeta(rs);
-                rezultat.add(zaduzenje);
+                Issued issued = dajZaduzenjeIzResultSeta(rs);
+                rezultat.add(issued);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,34 +209,34 @@ public class VideotekaDAO {
         return rezultat;
     }
 
-    public void obrisiClan(Clan clan) {
+    public void obrisiClan(Member member) {
         try {
-            obrisiClanUpit.setInt(1, clan.getId());
+            obrisiClanUpit.setInt(1, member.getId());
             obrisiClanUpit.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void obrisiFilm(Film film) {
+    public void obrisiFilm(Movie movie) {
         try {
-            obrisiFilmUpit.setInt(1, film.getId());
+            obrisiFilmUpit.setInt(1, movie.getId());
             obrisiFilmUpit.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void obrisiZaduzenje(Zaduzenje zaduzenje) {
+    public void obrisiZaduzenje(Issued issued) {
         try {
-            obrisiZaduzenjeUpit.setInt(1, zaduzenje.getId());
+            obrisiZaduzenjeUpit.setInt(1, issued.getId());
             obrisiZaduzenjeUpit.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void dodajClan(Clan clan) {
+    public void dodajClan(Member member) {
         try {
             ResultSet rs = odrediIdClanaUpit.executeQuery();
             int id = 1;
@@ -245,9 +245,9 @@ public class VideotekaDAO {
             }
 
             dodajClanUpit.setInt(1, id);
-            dodajClanUpit.setString(2, clan.getNaziv());
-            dodajClanUpit.setString(3, clan.getBrojTelefona());
-            dodajClanUpit.setString(4, clan.getEmail());
+            dodajClanUpit.setString(2, member.getNaziv());
+            dodajClanUpit.setString(3, member.getBrojTelefona());
+            dodajClanUpit.setString(4, member.getEmail());
             dodajClanUpit.executeUpdate();
 
         } catch (SQLException e) {
@@ -255,7 +255,7 @@ public class VideotekaDAO {
         }
     }
 
-    public void dodajFilm(Film film) {
+    public void dodajFilm(Movie movie) {
         try {
             ResultSet rs = odrediIdFilmaUpit.executeQuery();
             int id = 1;
@@ -264,11 +264,11 @@ public class VideotekaDAO {
             }
 
             dodajFilmUpit.setInt(1, id);
-            dodajFilmUpit.setString(2, film.getNaziv());
-            dodajFilmUpit.setString(3, film.getZanr());
-            dodajFilmUpit.setInt(4, film.getGodinaIzdanja());
-            dodajFilmUpit.setString(5, film.getGlavniGlumac());
-            dodajFilmUpit.setInt(6, film.getKolicina());
+            dodajFilmUpit.setString(2, movie.getNaziv());
+            dodajFilmUpit.setString(3, movie.getZanr());
+            dodajFilmUpit.setInt(4, movie.getGodinaIzdanja());
+            dodajFilmUpit.setString(5, movie.getGlavniGlumac());
+            dodajFilmUpit.setInt(6, movie.getKolicina());
 
             dodajFilmUpit.executeUpdate();
 
@@ -277,7 +277,7 @@ public class VideotekaDAO {
         }
     }
 
-    public void dodajZaduzenje(Zaduzenje zaduzenje) {
+    public void dodajZaduzenje(Issued issued) {
         try {
             ResultSet rs = odrediIdZaduzenjaUpit.executeQuery();
             int id = 1;
@@ -286,10 +286,10 @@ public class VideotekaDAO {
             }
 
             dodajZaduzenjeUpit.setInt(1, id);
-            dodajZaduzenjeUpit.setInt(2, zaduzenje.getClan().getId());
-            dodajZaduzenjeUpit.setInt(3, zaduzenje.getFilm().getId());
-            dodajZaduzenjeUpit.setDate(4, Date.valueOf(zaduzenje.getDatumZaduzenja()));
-            dodajZaduzenjeUpit.setDate(4, Date.valueOf(zaduzenje.getDatumRazduzenja()));
+            dodajZaduzenjeUpit.setInt(2, issued.getMember().getId());
+            dodajZaduzenjeUpit.setInt(3, issued.getMovie().getId());
+            dodajZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumZaduzenja()));
+            dodajZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumRazduzenja()));
             dodajZaduzenjeUpit.executeUpdate();
 
         } catch (SQLException e) {
@@ -297,7 +297,7 @@ public class VideotekaDAO {
         }
     }
 
-    public Clan nadjiClan(String nazivClana) {
+    public Member nadjiClan(String nazivClana) {
         try {
             nadjiClanaUpit.setString(1, nazivClana);
             ResultSet rs = nadjiClanaUpit.executeQuery();
@@ -309,7 +309,7 @@ public class VideotekaDAO {
         }
     }
 
-    public Film nadjiFilm(String nazivFilma) {
+    public Movie nadjiFilm(String nazivFilma) {
         try {
             nadjiFilmUpit.setString(1, nazivFilma);
             ResultSet rs = nadjiFilmUpit.executeQuery();
@@ -321,7 +321,7 @@ public class VideotekaDAO {
         }
     }
 
-    public Zaduzenje nadjiZaduzenje(String idZaduzenja) {
+    public Issued nadjiZaduzenje(String idZaduzenja) {
         try {
             nadjiZaduzenjeUpit.setString(1, idZaduzenja);
             ResultSet rs = nadjiZaduzenjeUpit.executeQuery();
@@ -333,13 +333,13 @@ public class VideotekaDAO {
         }
     }
 
-    public void promijeniClana(Clan clan) {
+    public void promijeniClana(Member member) {
         try {
 
-            promijeniClanUpit.setString(1, clan.getNaziv());
-            promijeniClanUpit.setString(2, clan.getBrojTelefona());
-            promijeniClanUpit.setString(3, clan.getEmail());
-            promijeniClanUpit.setInt(4, clan.getId());
+            promijeniClanUpit.setString(1, member.getNaziv());
+            promijeniClanUpit.setString(2, member.getBrojTelefona());
+            promijeniClanUpit.setString(3, member.getEmail());
+            promijeniClanUpit.setInt(4, member.getId());
             promijeniClanUpit.executeUpdate();
 
 
@@ -348,15 +348,15 @@ public class VideotekaDAO {
         }
     }
 
-    public void promijeniFilm(Film film) {
+    public void promijeniFilm(Movie movie) {
         try {
 
-            promijeniFilmUpit.setString(1, film.getNaziv());
-            promijeniFilmUpit.setString(2, film.getZanr());
-            promijeniFilmUpit.setInt(3, film.getGodinaIzdanja());
-            promijeniFilmUpit.setString(4, film.getGlavniGlumac());
-            promijeniFilmUpit.setInt(5, film.getKolicina());
-            promijeniFilmUpit.setInt(6, film.getId());
+            promijeniFilmUpit.setString(1, movie.getNaziv());
+            promijeniFilmUpit.setString(2, movie.getZanr());
+            promijeniFilmUpit.setInt(3, movie.getGodinaIzdanja());
+            promijeniFilmUpit.setString(4, movie.getGlavniGlumac());
+            promijeniFilmUpit.setInt(5, movie.getKolicina());
+            promijeniFilmUpit.setInt(6, movie.getId());
 
             promijeniFilmUpit.executeUpdate();
 
@@ -366,14 +366,14 @@ public class VideotekaDAO {
         }
     }
 
-    public void promijeniZaduzenje(Zaduzenje zaduzenje) {
+    public void promijeniZaduzenje(Issued issued) {
         try {
 
-            promijeniZaduzenjeUpit.setInt(1, zaduzenje.getClan().getId());
-            promijeniZaduzenjeUpit.setInt(2, zaduzenje.getFilm().getId());
-            promijeniZaduzenjeUpit.setDate(3, Date.valueOf(zaduzenje.getDatumZaduzenja()));
-            promijeniZaduzenjeUpit.setDate(4, Date.valueOf(zaduzenje.getDatumRazduzenja()));
-            promijeniZaduzenjeUpit.setInt(5, zaduzenje.getId());
+            promijeniZaduzenjeUpit.setInt(1, issued.getMember().getId());
+            promijeniZaduzenjeUpit.setInt(2, issued.getMovie().getId());
+            promijeniZaduzenjeUpit.setDate(3, Date.valueOf(issued.getDatumZaduzenja()));
+            promijeniZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumRazduzenja()));
+            promijeniZaduzenjeUpit.setInt(5, issued.getId());
             promijeniZaduzenjeUpit.executeUpdate();
 
 

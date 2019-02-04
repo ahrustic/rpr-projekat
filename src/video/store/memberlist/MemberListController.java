@@ -1,6 +1,5 @@
 package video.store.memberlist;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import video.store.VideotekaDAO;
-import video.store.addmember.DodajClanaController;
-import video.store.classes.Clan;
+import video.store.VideoStoreDAO;
+import video.store.addmember.AddMemberController;
+import video.store.classes.Member;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,20 +28,20 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class MemberListController implements Initializable {
 
-    public TableView<Clan> tableView;
+    public TableView<Member> tableView;
     public TableColumn idCol;
     public TableColumn nameCol;
     public TableColumn mobileCol;
     public TableColumn emailCol;
-    private VideotekaDAO dao;
-    private ObservableList<Clan> listaClanova;
+    private VideoStoreDAO dao;
+    private ObservableList<Member> listaClanova;
 
     public MemberListController() {
-        dao = VideotekaDAO.getInstance();
+        dao = VideoStoreDAO.getInstance();
         listaClanova = FXCollections.observableArrayList(dao.clanovi());
     }
 
-    public MemberListController(Object o, ArrayList<Clan> clanovi) {
+    public MemberListController(Object o, ArrayList<Member> clanovi) {
 
     }
 
@@ -60,8 +59,8 @@ public class MemberListController implements Initializable {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/dodajClana.fxml"));
-            DodajClanaController clanController = new DodajClanaController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/addMember.fxml"));
+            AddMemberController clanController = new AddMemberController();
             loader.setController(clanController);
             root = loader.load();
             stage.setTitle("Dodaj clana");
@@ -70,7 +69,7 @@ public class MemberListController implements Initializable {
             stage.show();
 
             stage.setOnHiding( event -> {
-                Clan noviclan = DodajClanaController.getClan();
+                Member noviclan = AddMemberController.getClan();
                 if (noviclan != null) {
                     dao.dodajClan(noviclan);
                     listaClanova.setAll(dao.clanovi());
@@ -82,14 +81,14 @@ public class MemberListController implements Initializable {
     }
 
     public void actionIzmijeniClan(ActionEvent actionEvent){
-        Clan clan = tableView.getSelectionModel().getSelectedItem();
-        if (clan == null) return;
+        Member member = tableView.getSelectionModel().getSelectedItem();
+        if (member == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/dodajClana.fxml"));
-            DodajClanaController clanController = new DodajClanaController(clan, dao.clanovi());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/addMember.fxml"));
+            AddMemberController clanController = new AddMemberController(member, dao.clanovi());
             loader.setController(clanController);
             root = loader.load();
             stage.setTitle("Promijeni clana");
@@ -98,7 +97,7 @@ public class MemberListController implements Initializable {
             stage.show();
 
             stage.setOnHiding( event -> {
-                Clan noviclan = DodajClanaController.getClan();
+                Member noviclan = AddMemberController.getClan();
                 if (noviclan != null) {
                     dao.promijeniClana(noviclan);
                     listaClanova.setAll(dao.clanovi());
@@ -110,25 +109,25 @@ public class MemberListController implements Initializable {
     }
 
     public void actionObrisiClan(ActionEvent actionEvent) {
-        Clan clan = tableView.getSelectionModel().getSelectedItem();
-        if (clan == null) return;
+        Member member = tableView.getSelectionModel().getSelectedItem();
+        if (member == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrda brisanja");
-        alert.setHeaderText("Brisanje clana "+ clan.getNaziv());
-        alert.setContentText("Da li ste sigurni da želite obrisati clana " + clan.getNaziv()+ "?");
+        alert.setHeaderText("Brisanje clana "+ member.getNaziv());
+        alert.setContentText("Da li ste sigurni da želite obrisati clana " + member.getNaziv()+ "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiClan(clan);
+            dao.obrisiClan(member);
             listaClanova.setAll(dao.clanovi());
         }
     }
     public void resetujBazu() {
-        VideotekaDAO.removeInstance();
+        VideoStoreDAO.removeInstance();
         File dbfile = new File("videostore.db");
         dbfile.delete();
-        dao = VideotekaDAO.getInstance();
+        dao = VideoStoreDAO.getInstance();
     }
 
     public void clickCancel(ActionEvent actionEvent) {
