@@ -18,11 +18,12 @@
             <TableView fx:id="tableView" layoutX="14.0" layoutY="86.0" prefHeight="440.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
                 <columns>
                     <TableColumn fx:id="idCol" maxWidth="2500.0" prefWidth="93.59997248649597" text="ID" />
-                    <TableColumn fx:id="titleCol" prefWidth="144.0" text="Naziv" />
-                    <TableColumn fx:id="genreCol" prefWidth="75.0" text="Žanr" />
-                  <TableColumn fx:id="yearCol" prefWidth="130.39996337890625" text="Godina izdanja" />
-                    <TableColumn fx:id="actorCol" prefWidth="158.39996337890625" text="Glavni glumac" />
-                    <TableColumn fx:id="quantityCol" maxWidth="2800.0" prefWidth="116.800048828125" text="Količina" />
+                    <TableColumn fx:id="titleCol" prefWidth="144.0" text="Title" />
+                    <TableColumn fx:id="genreCol" prefWidth="75.0" text="Genre" />
+                  <TableColumn fx:id="yearCol" prefWidth="130.39996337890625" text="Year" />
+                    <TableColumn fx:id="actorCol" prefWidth="158.39996337890625" text="Actor" />
+                  <TableColumn fx:id="productionCol" prefWidth="75.0" text="Production" />
+                    <TableColumn fx:id="quantityCol" maxWidth="2800.0" prefWidth="116.800048828125" text="Quantity" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -41,9 +42,9 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionDodajFilm" text="Dodaj" />
-                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionIzmijeniFilm" text="Promijeni" />
-                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionObrisiFilm" text="Izbrisi" />
+                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
+                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionChangeMovie" text="Change" />
+                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionDeleteMovie" text="Delete" />
                         <MenuItem fx:id="zatvori" mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                      </items>
                   </Menu>
@@ -51,9 +52,9 @@
             </MenuBar>
             <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
                <buttons>
-                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionDodajFilm" styleClass="login-button" text="Dodaj" />
-                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionIzmijeniFilm" styleClass="login-button" text="Promijeni" />
-                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionObrisiFilm" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Izbrisi" />
+                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionAddMovie" styleClass="login-button" text="Add" />
+                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionChangeMovie" styleClass="login-button" text="Change" />
+                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionDeleteMovie" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
                </buttons>
             </ButtonBar>
         </children>

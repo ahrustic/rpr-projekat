@@ -18,8 +18,8 @@
                 <TableView fx:id="tableView" layoutY="84.0" prefHeight="372.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
                     <columns>
                         <TableColumn fx:id="idCol" maxWidth="2800.0" prefWidth="60.0" text="ID" />
-                        <TableColumn fx:id="nameCol" prefWidth="75.0" text="Ime i prezime" />
-                        <TableColumn fx:id="mobileCol" prefWidth="75.0" text="Broj telefona" />
+                        <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="mobileCol" prefWidth="75.0" text="Mobile" />
                         <TableColumn fx:id="emailCol" prefWidth="75.0" text="Email" />
                     </columns>
                     <columnResizePolicy>
@@ -39,19 +39,19 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionDodajClan" text="Dodaj" />
-                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionIzmijeniClan" text="Promijeni" />
-                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionObrisiClan" text="Izbrisi" />
-                        <MenuItem fx:id="zatvori" mnemonicParsing="false" onAction="#clickCancel" text="Close" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionAddMember" text="Add" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionChangeMember" text="Change" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionDeleteMember" text="Delete" />
+                        <MenuItem  mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                      </items>
                   </Menu>
                </menus>
                 </MenuBar>
             <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
                <buttons>
-                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionDodajClan" styleClass="login-button" text="Dodaj" />
-                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionIzmijeniClan" styleClass="login-button" text="Promijeni" />
-                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionObrisiClan" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Izbrisi" />
+                  <Button   mnemonicParsing="false" onAction="#actionAddMember" styleClass="login-button" text="Add" />
+                  <Button   mnemonicParsing="false" onAction="#actionChangeMember" styleClass="login-button" text="Change" />
+                  <Button   mnemonicParsing="false" onAction="#actionDeleteMember" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
                </buttons>
             </ButtonBar>
             </children>

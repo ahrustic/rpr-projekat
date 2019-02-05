@@ -7,15 +7,20 @@ public class Issued {
     private int id;
     private Member member;
     private Movie movie;
-    private LocalDate datumZaduzenja;
-    private LocalDate datumRazduzenja;
+    private LocalDate dateCharge = LocalDate.now();
+    private LocalDate dateDischarge = LocalDate.now();
 
-    public Issued(int id, Member member, Movie movie, LocalDate datumZaduzenja, LocalDate datumRazduzenja) {
+    public Issued(int id, Member member, Movie movie, LocalDate dateCharge, LocalDate dateDischarge) {
         this.id = id;
         this.member = member;
         this.movie = movie;
-        this.datumZaduzenja = datumZaduzenja;
-        this.datumRazduzenja = datumRazduzenja;
+        this.dateCharge = dateCharge;
+        this.dateDischarge = dateDischarge;
+    }
+
+    public Issued(){
+        dateCharge = LocalDate.now();
+        dateDischarge = LocalDate.now();
     }
 
     public int getId() {
@@ -42,19 +47,19 @@ public class Issued {
         this.movie = movie;
     }
 
-    public LocalDate getDatumZaduzenja() {
-        return datumZaduzenja;
+    public LocalDate getDateCharge() {
+        return dateCharge;
     }
 
-    public void setDatumZaduzenja(LocalDate datumZaduzenja) {
-        this.datumZaduzenja = datumZaduzenja;
+    public void setDateCharge(LocalDate dateCharge) {
+        this.dateCharge = dateCharge;
     }
 
-    public LocalDate getDatumRazduzenja() {
-        return datumRazduzenja;
+    public LocalDate getDateDischarge() {
+        return dateDischarge;
     }
 
-    public void setDatumRazduzenja(LocalDate datumRazduzenja) {
-        this.datumRazduzenja = datumRazduzenja;
+    public void setDateDischarge(LocalDate dateDischarge) {
+        this.dateDischarge = dateDischarge;
     }
 }

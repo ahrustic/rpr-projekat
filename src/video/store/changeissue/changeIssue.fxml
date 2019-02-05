@@ -8,10 +8,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ComboBox fx:id="clanCombo" layoutX="33.0" layoutY="31.0" prefHeight="43.0" prefWidth="340.0" />
-      <ComboBox fx:id="filmCombo" layoutX="34.0" layoutY="108.0" prefHeight="43.0" prefWidth="340.0" />
-      <DatePicker fx:id="zaduzenjeDate" layoutX="35.0" layoutY="185.0" prefHeight="43.0" prefWidth="340.0" />
-      <DatePicker fx:id="razduzenjeDate" layoutX="35.0" layoutY="260.0" prefHeight="43.0" prefWidth="340.0" />
+      <ComboBox fx:id="memberCombo" layoutX="33.0" layoutY="31.0" prefHeight="43.0" prefWidth="340.0" />
+      <ComboBox fx:id="movieCombo" layoutX="34.0" layoutY="108.0" prefHeight="43.0" prefWidth="340.0" />
+      <DatePicker fx:id="chargedDate" layoutX="35.0" layoutY="185.0" prefHeight="43.0" prefWidth="340.0" />
+      <DatePicker fx:id="dischargedDate" layoutX="35.0" layoutY="260.0" prefHeight="43.0" prefWidth="340.0" />
       <Button fx:id="okBtn" layoutX="86.0" layoutY="332.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="78.0" styleClass="login-button" text="OK" />
       <Button fx:id="cancleBtn" layoutX="231.0" layoutY="332.0" mnemonicParsing="false" onAction="#clickCancel" prefHeight="43.0" prefWidth="78.0" styleClass="login-button" text="Cancle" />
    </children>

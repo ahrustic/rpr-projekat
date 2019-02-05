@@ -15,7 +15,7 @@ public class ChangeIssueMain extends Application {
         ChangeIssueController ctrl = new ChangeIssueController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Promijeni zaduzenje");
+        primaryStage.setTitle("Change issued");
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
     }

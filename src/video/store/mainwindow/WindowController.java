@@ -11,13 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import video.store.VideoStoreDAO;
-import video.store.addissue.AddIssueController;
-import video.store.addmember.AddMemberController;
-import video.store.addmovie.AddMovieController;
+import video.store.about.AboutController;
+import video.store.add.issue.AddIssueController;
+import video.store.add.member.AddMemberController;
+import video.store.add.movie.AddMovieController;
 import video.store.classes.Issued;
 import video.store.classes.Member;
 import video.store.classes.Movie;
-import video.store.issuelist.IssuedController;
+import video.store.issuedlist.IssuedController;
 import video.store.memberlist.MemberListController;
 import video.store.movielist.MovieController;
 
@@ -31,37 +32,37 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class WindowController implements Initializable {
 
     private VideoStoreDAO dao;
-    private ObservableList<Member> listaClanova;
-    private ObservableList<Movie> listaFilmova;
-    private ObservableList<Issued> listaZaduzenja;
+    private ObservableList<Member> memberList;
+    private ObservableList<Movie> movieList;
+    private ObservableList<Issued> issuedList;
     private AnchorPane pane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dao = VideoStoreDAO.getInstance();
-        listaClanova = FXCollections.observableArrayList(dao.clanovi());
-        listaFilmova = FXCollections.observableArrayList(dao.filmovi());
-        listaZaduzenja = FXCollections.observableArrayList(dao.zaduzenja());
+        memberList = FXCollections.observableArrayList(dao.members());
+        movieList = FXCollections.observableArrayList(dao.movies());
+        issuedList = FXCollections.observableArrayList(dao.issued());
     }
 
-    public void actionDodajClan(ActionEvent actionEvent) {
+    public void actionAddMember(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/addMember.fxml"));
-            AddMemberController clanController = new AddMemberController();
-            loader.setController(clanController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/member/addMember.fxml"));
+            AddMemberController memberController = new AddMemberController();
+            loader.setController(memberController);
             root = loader.load();
-            stage.setTitle("Dodaj clana");
+            stage.setTitle("Add member");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Member noviclan = AddMemberController.getClan();
+                Member noviclan = memberController.getClan();
                 if (noviclan != null) {
-                    dao.dodajClan(noviclan);
-                    listaClanova.setAll(dao.clanovi());
+                    dao.addMember(noviclan);
+                    memberList.setAll(dao.members());
                 }
             } );
         } catch (IOException e) {
@@ -69,24 +70,24 @@ public class WindowController implements Initializable {
         }
     }
 
-    public void actionDodajFilm(ActionEvent actionEvent) {
+    public void actionAddMovie(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/addMovie.fxml"));
-            AddMovieController filmController = new AddMovieController();
-            loader.setController(filmController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/movie/addMovie.fxml"));
+            AddMovieController movieController = new AddMovieController();
+            loader.setController(movieController);
             root = loader.load();
-            stage.setTitle("Dodaj movie");
+            stage.setTitle("Add movie");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Movie novifilm = filmController.getMovie();
+                Movie novifilm = movieController.getMovie();
                 if (novifilm != null) {
-                    dao.dodajFilm(novifilm);
-                    listaFilmova.setAll(dao.filmovi());
+                    dao.addMovie(novifilm);
+                    movieList.setAll(dao.movies());
                 }
             } );
         } catch (IOException e) {
@@ -94,24 +95,24 @@ public class WindowController implements Initializable {
         }
     }
 
-    public void actionDodajZaduzenje(ActionEvent actionEvent) {
+    public void actionAddIssued(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addissue/addIssue.fxml"));
-            AddIssueController zaduzenjeController = new AddIssueController();
-            loader.setController(zaduzenjeController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/issue/addIssue.fxml"));
+            AddIssueController issuedController = new AddIssueController();
+            loader.setController(issuedController);
             root = loader.load();
-            stage.setTitle("Dodaj zaduzenje");
+            stage.setTitle("Add issued");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Issued novoIssued = zaduzenjeController.getIssued();
+                Issued novoIssued = issuedController.getIssued();
                 if (novoIssued != null) {
-                    dao.dodajZaduzenje(novoIssued);
-                    listaZaduzenja.setAll(dao.zaduzenja());
+                    dao.addIssued(novoIssued);
+                    issuedList.setAll(dao.issued());
                 }
             } );
         } catch (IOException e) {
@@ -119,7 +120,7 @@ public class WindowController implements Initializable {
         }
     }
 
-    public void listaClanova(ActionEvent actionEvent) {
+    public void listMember(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../memberlist/member.fxml"));
@@ -127,7 +128,7 @@ public class WindowController implements Initializable {
         loader.setController(ctrl);
         try {
             root = loader.load();
-            stage.setTitle("Clanovi");
+            stage.setTitle("Members");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -136,7 +137,7 @@ public class WindowController implements Initializable {
         }
     }
 
-    public void listaFilmova(ActionEvent actionEvent) {
+    public void listMovie(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../movielist/movie.fxml"));
@@ -144,7 +145,7 @@ public class WindowController implements Initializable {
         loader.setController(ctrl);
         try {
             root = loader.load();
-            stage.setTitle("Filmovi");
+            stage.setTitle("Movies");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -153,15 +154,15 @@ public class WindowController implements Initializable {
         }
     }
 
-    public void listaZaduzenja(ActionEvent actionEvent) {
+    public void listIssued(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../issuelist/issued.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../issuedlist/issued.fxml"));
         IssuedController ctrl = new IssuedController();
         loader.setController(ctrl);
         try {
             root = loader.load();
-            stage.setTitle("Zaduzenja");
+            stage.setTitle("Issued");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -170,6 +171,22 @@ public class WindowController implements Initializable {
         }
     }
 
+    public void about(ActionEvent actionEvent){
+            Stage stage = new Stage();
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../about/about.fxml"));
+            AboutController ctrl = new AboutController();
+            loader.setController(ctrl);
+            try {
+                root = loader.load();
+                stage.setTitle("About");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
 
     public void clickCancel(ActionEvent actionEvent) {
         Platform.exit();

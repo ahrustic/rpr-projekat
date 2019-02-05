@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import video.store.VideoStoreDAO;
-import video.store.addmember.AddMemberController;
+import video.store.add.member.AddMemberController;
 import video.store.classes.Member;
 
 import java.io.File;
@@ -34,45 +34,45 @@ public class MemberListController implements Initializable {
     public TableColumn mobileCol;
     public TableColumn emailCol;
     private VideoStoreDAO dao;
-    private ObservableList<Member> listaClanova;
+    private ObservableList<Member> memberList;
 
     public MemberListController() {
         dao = VideoStoreDAO.getInstance();
-        listaClanova = FXCollections.observableArrayList(dao.clanovi());
+        memberList = FXCollections.observableArrayList(dao.members());
     }
 
-    public MemberListController(Object o, ArrayList<Member> clanovi) {
+    public MemberListController(Object o, ArrayList<Member> members) {
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tableView.setItems(listaClanova);
+        tableView.setItems(memberList);
         idCol.setCellValueFactory(new PropertyValueFactory("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory("naziv"));
-        mobileCol.setCellValueFactory(new PropertyValueFactory("email"));
-        emailCol.setCellValueFactory(new PropertyValueFactory("brojTelefona"));
+        nameCol.setCellValueFactory(new PropertyValueFactory("name"));
+        mobileCol.setCellValueFactory(new PropertyValueFactory("mobile"));
+        emailCol.setCellValueFactory(new PropertyValueFactory("email"));
 
     }
 
-    public void actionDodajClan(ActionEvent actionEvent) {
+    public void actionAddMember(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/addMember.fxml"));
-            AddMemberController clanController = new AddMemberController();
-            loader.setController(clanController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/member/addMember.fxml"));
+            AddMemberController memberController = new AddMemberController();
+            loader.setController(memberController);
             root = loader.load();
-            stage.setTitle("Dodaj clana");
+            stage.setTitle("Add member");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Member noviclan = AddMemberController.getClan();
-                if (noviclan != null) {
-                    dao.dodajClan(noviclan);
-                    listaClanova.setAll(dao.clanovi());
+                Member newMember = memberController.getClan();
+                if (newMember != null) {
+                    dao.addMember(newMember);
+                    memberList.setAll(dao.members());
                 }
             } );
         } catch (IOException e) {
@@ -80,27 +80,27 @@ public class MemberListController implements Initializable {
         }
     }
 
-    public void actionIzmijeniClan(ActionEvent actionEvent){
+    public void actionChangeMember(ActionEvent actionEvent){
         Member member = tableView.getSelectionModel().getSelectedItem();
         if (member == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmember/addMember.fxml"));
-            AddMemberController clanController = new AddMemberController(member, dao.clanovi());
-            loader.setController(clanController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/member/addMember.fxml"));
+            AddMemberController memberController = new AddMemberController(member, dao.members());
+            loader.setController(memberController);
             root = loader.load();
-            stage.setTitle("Promijeni clana");
+            stage.setTitle("Change member");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Member noviclan = AddMemberController.getClan();
-                if (noviclan != null) {
-                    dao.promijeniClana(noviclan);
-                    listaClanova.setAll(dao.clanovi());
+                Member newMember = memberController.getClan();
+                if (newMember != null) {
+                    dao.changeMember(newMember);
+                    memberList.setAll(dao.members());
                 }
             } );
         } catch (IOException e) {
@@ -108,26 +108,19 @@ public class MemberListController implements Initializable {
         }
     }
 
-    public void actionObrisiClan(ActionEvent actionEvent) {
+    public void actionDeleteMember(ActionEvent actionEvent) {
         Member member = tableView.getSelectionModel().getSelectedItem();
         if (member == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda brisanja");
-        alert.setHeaderText("Brisanje clana "+ member.getNaziv());
-        alert.setContentText("Da li ste sigurni da želite obrisati clana " + member.getNaziv()+ "?");
+        alert.setTitle("Delete");
+        alert.setContentText("Are you sure that you want delete " + member.getName()+ "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiClan(member);
-            listaClanova.setAll(dao.clanovi());
+            dao.deleteMember(member);
+            memberList.setAll(dao.members());
         }
-    }
-    public void resetujBazu() {
-        VideoStoreDAO.removeInstance();
-        File dbfile = new File("videostore.db");
-        dbfile.delete();
-        dao = VideoStoreDAO.getInstance();
     }
 
     public void clickCancel(ActionEvent actionEvent) {

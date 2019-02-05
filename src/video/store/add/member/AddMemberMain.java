@@ -1,4 +1,4 @@
-package video.store.addissue;
+package video.store.add.member;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,15 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class AddIssueMain extends Application {
+public class AddMemberMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addIssue.fxml"));
-        AddIssueController ctrl = new AddIssueController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addMember.fxml"));
+        AddMemberController ctrl = new AddMemberController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Dodaj zaduzenje");
+        primaryStage.setTitle("Add member");
         primaryStage.setScene(new Scene(root, 400, 350));
         primaryStage.show();
     }

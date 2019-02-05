@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import video.store.VideoStoreDAO;
-import video.store.addmovie.AddMovieController;
+import video.store.add.movie.AddMovieController;
 import video.store.classes.Movie;
 
 import java.io.IOException;
@@ -47,13 +47,15 @@ public class MovieController implements Initializable {
     @FXML
     private TableColumn<Movie, String> genreCol;
     @FXML
+    private TableColumn<Movie, String> productionCol;
+    @FXML
     private AnchorPane contentPane;
 
     private VideoStoreDAO dao;
 
     public MovieController() {
         dao = VideoStoreDAO.getInstance();
-        listaFilmova = FXCollections.observableArrayList(dao.filmovi());
+        listaFilmova = FXCollections.observableArrayList(dao.movies());
     }
 
 
@@ -61,32 +63,33 @@ public class MovieController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tableView.setItems(listaFilmova);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<>("naziv"));
-        genreCol.setCellValueFactory(new PropertyValueFactory<>("zanr"));
-        yearCol.setCellValueFactory(new PropertyValueFactory<>("godinaIzdanja"));
-        actorCol.setCellValueFactory(new PropertyValueFactory<>("glavniGlumac"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
+        actorCol.setCellValueFactory(new PropertyValueFactory<>("actor"));
+        productionCol.setCellValueFactory(new PropertyValueFactory<>("production"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
     }
 
-    public void actionDodajFilm(ActionEvent actionEvent) {
+    public void actionAddMovie(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/addMovie.fxml"));
-            AddMovieController filmController = new AddMovieController();
-            loader.setController(filmController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/movie/addMovie.fxml"));
+            AddMovieController movieController = new AddMovieController();
+            loader.setController(movieController);
             root = loader.load();
-            stage.setTitle("Dodaj movie");
+            stage.setTitle("Add movie");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Movie novifilm = filmController.getMovie();
-                if (novifilm != null) {
-                    dao.dodajFilm(novifilm);
-                    listaFilmova.setAll(dao.filmovi());
+                Movie newMovie = movieController.getMovie();
+                if (newMovie != null) {
+                    dao.addMovie(newMovie);
+                    listaFilmova.setAll(dao.movies());
                 }
             } );
         } catch (IOException e) {
@@ -94,27 +97,27 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void actionIzmijeniFilm(ActionEvent actionEvent){
+    public void actionChangeMovie(ActionEvent actionEvent){
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         if (movie == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../addmovie/addMovie.fxml"));
-            AddMovieController filmController = new AddMovieController(movie, dao.filmovi());
-            loader.setController(filmController);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/movie/addMovie.fxml"));
+            AddMovieController movieController = new AddMovieController(movie, dao.movies());
+            loader.setController(movieController);
             root = loader.load();
-            stage.setTitle("Promijeni movie");
+            stage.setTitle("Change movie");
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
 
             stage.setOnHiding( event -> {
-                Movie novifilm = filmController.getMovie();
-                if (novifilm != null) {
-                    dao.promijeniFilm(novifilm);
-                    listaFilmova.setAll(dao.filmovi());
+                Movie newMovie = movieController.getMovie();
+                if (newMovie != null) {
+                    dao.changeMovie(newMovie);
+                    listaFilmova.setAll(dao.movies());
                 }
             } );
         } catch (IOException e) {
@@ -122,19 +125,18 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void actionObrisiFilm(ActionEvent actionEvent) {
+    public void actionDeleteMovie(ActionEvent actionEvent) {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         if (movie == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potvrda brisanja");
-        alert.setHeaderText("Brisanje movie "+ movie.getNaziv());
-        alert.setContentText("Da li ste sigurni da želite obrisati movie " + movie.getNaziv()+ "?");
+        alert.setTitle("Delete");
+        alert.setContentText("Are you sure that you want to delete " + movie.getName()+ "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiFilm(movie);
-            listaFilmova.setAll(dao.filmovi());
+            dao.deleteMovie(movie);
+            listaFilmova.setAll(dao.movies());
         }
     }
 

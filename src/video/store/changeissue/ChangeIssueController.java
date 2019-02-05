@@ -24,13 +24,13 @@ import java.util.ResourceBundle;
 public class ChangeIssueController implements Initializable {
 
     @FXML
-    private ComboBox<Member> clanCombo = new ComboBox<>();
+    private ComboBox<Member> memberCombo = new ComboBox<>();
     @FXML
-    private ComboBox<Movie> filmCombo = new ComboBox<>();
+    private ComboBox<Movie> movieCombo = new ComboBox<>();
     @FXML
-    private DatePicker zaduzenjeDate;
+    private DatePicker chargedDate;
     @FXML
-    private DatePicker razduzenjeDate;
+    private DatePicker dischargedDate;
     @FXML
     private Button dodajBtn;
     @FXML
@@ -38,18 +38,18 @@ public class ChangeIssueController implements Initializable {
     private Issued issued;
     private boolean ispravnostZaduzenje = false;
     private boolean ispravnostRazduzenja = false;
-    public ObservableList<Member> listaClanova;
-    public ObservableList<Movie> listaFilmova;
+    public ObservableList<Member> memberList;
+    public ObservableList<Movie> movieList;
     public Movie movie;
     public Member member;
 
 
     public ChangeIssueController(Issued issued, ArrayList<Movie> f, ArrayList<Member> c){
         this.issued = issued;
-        listaClanova = FXCollections.observableArrayList(c);
-        listaFilmova = FXCollections.observableArrayList(f);
-        clanCombo.setItems(listaClanova);
-        filmCombo.setItems(listaFilmova);
+        memberList = FXCollections.observableArrayList(c);
+        movieList = FXCollections.observableArrayList(f);
+        memberCombo.setItems(memberList);
+        movieCombo.setItems(movieList);
     }
 
     public ChangeIssueController() {
@@ -58,7 +58,7 @@ public class ChangeIssueController implements Initializable {
 
     public void clickCancel(ActionEvent actionEvent) {
         issued = null;
-        Stage stage = (Stage) clanCombo.getScene().getWindow();
+        Stage stage = (Stage) memberCombo.getScene().getWindow();
         stage.close();
     }
 
@@ -74,7 +74,7 @@ public class ChangeIssueController implements Initializable {
         if (novi.length() != 11) return false;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
         LocalDate datum = LocalDate.parse(novi, formatter);
-        LocalDate datumZaduzenja = LocalDate.parse(zaduzenjeDate.getEditor().getText(), formatter);
+        LocalDate datumZaduzenja = LocalDate.parse(chargedDate.getEditor().getText(), formatter);
         if (!datum.isAfter(datumZaduzenja)) return false;
         return !datum.isAfter(LocalDate.now());
 
@@ -83,55 +83,67 @@ public class ChangeIssueController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        clanCombo.setItems(listaClanova);
-        filmCombo.setItems(listaFilmova);
+        memberCombo.setItems(memberList);
+        movieCombo.setItems(movieList);
+        /*vlasnikCombo.setItems(vlasnici);
+        proizvodjacCombo.setItems(proizvodjaci);
+
+        if (vozilo != null) {
+            proizvodjacCombo.setValue(vozilo.getProizvodjac().getNaziv());
+            modelField.setText(vozilo.getModel());
+            brojSasijeField.setText(vozilo.getBrojSasije());
+            brojTablicaField.setText(vozilo.getBrojTablica());
+            String prezimeIme = vozilo.getVlasnik().getPrezime().concat(" ").concat(vozilo.getVlasnik().getIme());
+            vlasnikCombo.setValue(prezimeIme);
+        }
+    }*/
 
         if(issued != null){
-            zaduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDatumZaduzenja()))));
-            razduzenjeDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDatumRazduzenja()))));
-            for (Member c : listaClanova)
+            chargedDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDateCharge()))));
+            dischargedDate.getEditor().setText(String.valueOf(LocalDate.parse(toString(issued.getDateDischarge()))));
+            for (Member c : memberList)
                 if (c.getId() == issued.getMember().getId()) {
-                    clanCombo.getSelectionModel().select(c);
-                    clanCombo.setPromptText(String.valueOf(new Member(c.getId(), c.getNaziv(), c.getEmail(), c.getBrojTelefona())));
+                    memberCombo.getSelectionModel().select(c);
+                    memberCombo.setPromptText(String.valueOf(new Member(c.getId(), c.getName(), c.getEmail(), c.getMobile())));
                 }
-            for (Movie f : listaFilmova)
+            for (Movie f : movieList)
                 if (f.getId() == issued.getMovie().getId()) {
-                    filmCombo.getSelectionModel().select(f);
-                    filmCombo.setPromptText(String.valueOf(new Movie(f.getId(), f.getNaziv(), f.getZanr(), f.getGodinaIzdanja(), f.getGlavniGlumac(), f.getKolicina())));
+                    movieCombo.getSelectionModel().select(f);
+                    movieCombo.setPromptText(String.valueOf(new Movie(f.getId(), f.getName(), f.getGenre(), f.getYear(), f.getActor(), f.getProduction(), f.getQuantity())));
                 }
 
 
         }
         else {
-            clanCombo.getSelectionModel().selectFirst();
-            filmCombo.getSelectionModel().selectFirst();
+            memberCombo.getSelectionModel().selectFirst();
+            movieCombo.getSelectionModel().selectFirst();
         }
 
-        zaduzenjeDate.getEditor().textProperty().addListener(new ChangeListener<String>() {
+        chargedDate.getEditor().textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
                 if (ispravnostDatuma(n)) {
-                    zaduzenjeDate.getStyleClass().removeAll("nijeValidan");
-                    zaduzenjeDate.getStyleClass().add("validan");
+                    chargedDate.getStyleClass().removeAll("notValid");
+                    chargedDate.getStyleClass().add("valid");
                     ispravnostZaduzenje = true;
                 } else {
-                    zaduzenjeDate.getStyleClass().removeAll("validan");
-                    zaduzenjeDate.getStyleClass().add("nijeValidan");
+                    chargedDate.getStyleClass().removeAll("valid");
+                    chargedDate.getStyleClass().add("notValid");
                     ispravnostZaduzenje = false;
                 }
             }
         });
 
-        razduzenjeDate.getEditor().textProperty().addListener(new ChangeListener<String>() {
+        dischargedDate.getEditor().textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
                 if (ispravnostDatumaRazduzenja(n)) {
-                    razduzenjeDate.getStyleClass().removeAll("nijeValidan");
-                    razduzenjeDate.getStyleClass().add("validan");
+                    dischargedDate.getStyleClass().removeAll("notValid");
+                    dischargedDate.getStyleClass().add("valid");
                     ispravnostRazduzenja = true;
                 } else {
-                    razduzenjeDate.getStyleClass().removeAll("validan");
-                    razduzenjeDate.getStyleClass().add("nijeValidan");
+                    dischargedDate.getStyleClass().removeAll("valid");
+                    dischargedDate.getStyleClass().add("notValid");
                     ispravnostRazduzenja = false;
                 }
             }

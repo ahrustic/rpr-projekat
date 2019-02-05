@@ -7,6 +7,7 @@ import video.store.classes.Movie;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,10 +16,10 @@ public class VideoStoreDAO {
     public static VideoStoreDAO instance = null;
     public Connection connection;
 
-    private PreparedStatement getFilmoviUpit, dajFilmUpit, dajClanUpit, dajZaduzenjeUpit, getClanoviUpit, getZaduzenjaUpit,
-                              obrisiFilmUpit, obrisiClanUpit, obrisiZaduzenjeUpit, dodajClanUpit, dodajFilmUpit, dodajZaduzenjeUpit, odrediIdClanaUpit,
-                              odrediIdFilmaUpit, odrediIdZaduzenjaUpit, nadjiClanaUpit, nadjiFilmUpit, nadjiZaduzenjeUpit, promijeniClanUpit,
-                              promijeniFilmUpit, promijeniZaduzenjeUpit;
+    private PreparedStatement getMoviesQuery, giveMovieQuery, giveMemberQuery, giveIssuedQuery, getMembersQuery, getIssuedQuery,
+            deleteMovieQuery, deleteMemberQuery, deleteIssuedQuery, addMemberQuery, addMovieQuery, addIssuedQuery, chooseIdMemberQuery,
+            chooseIdMovieQuery, chooseIdIssuedQuery, chooseMemberQuery, chooseMovieQuery, chooseIssuedQuery, changeMemberQuery,
+            changeMovieQuery, changeIssuedQuery;
 
     public  static VideoStoreDAO getInstance(){
         if (instance == null) instance = new VideoStoreDAO();
@@ -46,45 +47,45 @@ public class VideoStoreDAO {
             //e.printStackTrace();
         }
         try {
-            getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
+            getMembersQuery = connection.prepareStatement("SELECT * FROM member");
         }catch (SQLException e) {
-            regenerisiBazu();
+            regenerate();
             try {
-                getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
+                getMembersQuery = connection.prepareStatement("SELECT * FROM member");
             } catch (SQLException e1) {
                 //e1.printStackTrace();
             }
         }
 
         try{
-            dajClanUpit = connection.prepareStatement("SELECT * FROM member WHERE id=?");
-            dajFilmUpit = connection.prepareStatement("SELECT * FROM movie WHERE id=?");
-            dajZaduzenjeUpit = connection.prepareStatement("SELECT * FROM issued WHERE id=?");
+            giveMemberQuery = connection.prepareStatement("SELECT * FROM member WHERE id=?");
+            giveMovieQuery = connection.prepareStatement("SELECT * FROM movie WHERE id=?");
+            giveIssuedQuery = connection.prepareStatement("SELECT * FROM issued WHERE id=?");
 
 
-            getClanoviUpit = connection.prepareStatement("SELECT * FROM member");
-            getFilmoviUpit = connection.prepareStatement("SELECT * FROM movie");
-            getZaduzenjaUpit = connection.prepareStatement("SELECT * FROM issued");
+            getMembersQuery = connection.prepareStatement("SELECT * FROM member");
+            getMoviesQuery = connection.prepareStatement("SELECT * FROM movie");
+            getIssuedQuery = connection.prepareStatement("SELECT * FROM issued");
 
-            obrisiClanUpit = connection.prepareStatement("DELETE FROM member WHERE id=?");
-            obrisiFilmUpit = connection.prepareStatement("DELETE FROM movie WHERE id=?");
-            obrisiZaduzenjeUpit = connection.prepareStatement("DELETE FROM issued WHERE id=?");
+            deleteMemberQuery = connection.prepareStatement("DELETE FROM member WHERE id=?");
+            deleteMovieQuery = connection.prepareStatement("DELETE FROM movie WHERE id=?");
+            deleteIssuedQuery = connection.prepareStatement("DELETE FROM issued WHERE id=?");
 
-            dodajClanUpit = connection.prepareStatement("INSERT INTO member VALUES(?,?,?,?)");
-            dodajFilmUpit = connection.prepareStatement("INSERT INTO movie VALUES(?,?,?,?,?,?)");
-            dodajZaduzenjeUpit = connection.prepareStatement("INSERT INTO issued VALUES(?,?,?,?,?)");
+            addMemberQuery = connection.prepareStatement("INSERT INTO member VALUES(?,?,?,?)");
+            addMovieQuery = connection.prepareStatement("INSERT INTO movie VALUES(?,?,?,?,?,?)");
+            addIssuedQuery = connection.prepareStatement("INSERT INTO issued VALUES(?,?,?,?,?)");
 
-            odrediIdClanaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM member");
-            odrediIdFilmaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM movie");
-            odrediIdZaduzenjaUpit = connection.prepareStatement("SELECT MAX(id)+1 FROM issued");
+            chooseIdMemberQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM member");
+            chooseIdMovieQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM movie");
+            chooseIdIssuedQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM issued");
 
-            nadjiClanaUpit = connection.prepareStatement("SELECT * FROM member WHERE naziv=?");
-            nadjiFilmUpit = connection.prepareStatement("SELECT * FROM movie WHERE naziv=?");
-            nadjiZaduzenjeUpit = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
+            chooseMemberQuery = connection.prepareStatement("SELECT * FROM member WHERE naziv=?");
+            chooseMovieQuery = connection.prepareStatement("SELECT * FROM movie WHERE naziv=?");
+            chooseIssuedQuery = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
 
-            promijeniClanUpit = connection.prepareStatement("UPDATE member SET naziv=?, broj_telefona=?, email=? WHERE id=?");
-            promijeniFilmUpit = connection.prepareStatement("UPDATE movie SET naziv=?, zanr=?, godina_izdanja=?, glavni_glumac=?, kolicina=? WHERE id=?");
-            promijeniZaduzenjeUpit = connection.prepareStatement("UPDATE issued SET movie=?, member=?, datum_zaduzenja=?, datum_razduzenja=? WHERE id=?");
+            changeMemberQuery = connection.prepareStatement("UPDATE member SET name=?, mobile=?, email=? WHERE id=?");
+            changeMovieQuery = connection.prepareStatement("UPDATE movie SET name=?, genre=?, year=?, actor=?, production=?, quantity=? WHERE id=?");
+            changeIssuedQuery = connection.prepareStatement("UPDATE issued SET movie=?, member=?, date_charge=?, date_discharge=? WHERE id=?");
 
 
         } catch (SQLException e) {
@@ -93,35 +94,35 @@ public class VideoStoreDAO {
 
     }
 
-    private void regenerisiBazu() {
-        Scanner ulaz = null;
+    private void regenerate() {
+        Scanner scanner = null;
         try {
-            ulaz = new Scanner(new FileInputStream("videostore.db.sql"));
-            String sqlUpit = "";
-            while (ulaz.hasNext()) {
-                sqlUpit += ulaz.nextLine();
-                if ( sqlUpit.charAt( sqlUpit.length()-1 ) == ';') {
+            scanner = new Scanner(new FileInputStream("videostore.db.sql"));
+            String sqlQuery = "";
+            while (scanner.hasNext()) {
+                sqlQuery += scanner.nextLine();
+                if ( sqlQuery.charAt( sqlQuery.length()-1 ) == ';') {
                     try {
                         Statement stmt = connection.createStatement();
-                        stmt.execute(sqlUpit);
-                        sqlUpit = "";
+                        stmt.execute(sqlQuery);
+                        sqlQuery = "";
                     } catch (SQLException e) {
                         //e.printStackTrace();
                     }
                 }
             }
-            ulaz.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
            // e.printStackTrace();
         }
     }
 
-    private Member dajClan(int id) {
+    private Member giveMember(int id) {
         try {
-            dajClanUpit.setInt(1, id);
-            ResultSet rs = dajClanUpit.executeQuery();
+            giveMemberQuery.setInt(1, id);
+            ResultSet rs = giveMemberQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajClanIzResultSeta(rs);
+            return giveMemberFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
@@ -129,16 +130,16 @@ public class VideoStoreDAO {
 
     }
 
-    private Member dajClanIzResultSeta(ResultSet rs) throws SQLException {
+    private Member giveMemberFromResultSet(ResultSet rs) throws SQLException {
         return new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
     }
 
-    private Movie dajFilm(int id) {
+    private Movie giveMovie(int id) {
         try {
-            dajFilmUpit.setInt(1, id);
-            ResultSet rs = dajFilmUpit.executeQuery();
+            giveMovieQuery.setInt(1, id);
+            ResultSet rs = giveMovieQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajFilmIzResultSeta(rs);
+            return giveMovieFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
@@ -146,16 +147,16 @@ public class VideoStoreDAO {
 
     }
 
-    private Movie dajFilmIzResultSeta(ResultSet rs) throws SQLException {
-        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
+    private Movie giveMovieFromResultSet(ResultSet rs) throws SQLException {
+        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7));
     }
 
-    private Issued dajZaduzenje(int id) {
+    private Issued giveIssued(int id) {
         try {
-            dajZaduzenjeUpit.setInt(1, id);
-            ResultSet rs = dajZaduzenjeUpit.executeQuery();
+            giveIssuedQuery.setInt(1, id);
+            ResultSet rs = giveIssuedQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajZaduzenjeIzResultSeta(rs);
+            return giveIssuedFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
@@ -163,16 +164,18 @@ public class VideoStoreDAO {
 
     }
 
-    private Issued dajZaduzenjeIzResultSeta(ResultSet rs) throws SQLException {
-        return new Issued(rs.getInt(1), dajClan(rs.getInt(2)), dajFilm(rs.getInt(3)) , rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate());
+    private Issued giveIssuedFromResultSet(ResultSet rs) throws SQLException {
+        LocalDate charged = rs.getDate(4).toLocalDate();
+        LocalDate discharged = rs.getDate(5).toLocalDate();
+        return new Issued(rs.getInt(1), giveMember(rs.getInt(2)), giveMovie(rs.getInt(3)) , charged, discharged);
     }
 
-    public ArrayList<Movie> filmovi() {
+    public ArrayList<Movie> movies() {
         ArrayList<Movie> rezultat = new ArrayList();
         try {
-            ResultSet rs = getFilmoviUpit.executeQuery();
+            ResultSet rs = getMoviesQuery.executeQuery();
             while (rs.next()) {
-                Movie movie = dajFilmIzResultSeta(rs);
+                Movie movie = giveMovieFromResultSet(rs);
                 rezultat.add(movie);
             }
         } catch (SQLException e) {
@@ -181,12 +184,12 @@ public class VideoStoreDAO {
         return rezultat;
     }
 
-    public ArrayList<Member> clanovi() {
+    public ArrayList<Member> members() {
         ArrayList<Member> rezultat = new ArrayList();
         try {
-            ResultSet rs = getClanoviUpit.executeQuery();
+            ResultSet rs = getMembersQuery.executeQuery();
             while (rs.next()) {
-                Member member = dajClanIzResultSeta(rs);
+                Member member = giveMemberFromResultSet(rs);
                 rezultat.add(member);
             }
         } catch (SQLException e) {
@@ -195,152 +198,152 @@ public class VideoStoreDAO {
         return rezultat;
     }
 
-    public ArrayList<Issued> zaduzenja() {
-        ArrayList<Issued> rezultat = new ArrayList();
+    public ArrayList<Issued> issued() {
+        ArrayList<Issued> result = new ArrayList();
         try {
-            ResultSet rs = getZaduzenjaUpit.executeQuery();
+            ResultSet rs = getIssuedQuery.executeQuery();
             while (rs.next()) {
-                Issued issued = dajZaduzenjeIzResultSeta(rs);
-                rezultat.add(issued);
+                Issued issued = giveIssuedFromResultSet(rs);
+                result.add(issued);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rezultat;
+        return result;
     }
 
-    public void obrisiClan(Member member) {
+    public void deleteMember(Member member) {
         try {
-            obrisiClanUpit.setInt(1, member.getId());
-            obrisiClanUpit.executeUpdate();
+            deleteMemberQuery.setInt(1, member.getId());
+            deleteMemberQuery.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void obrisiFilm(Movie movie) {
+    public void deleteMovie(Movie movie) {
         try {
-            obrisiFilmUpit.setInt(1, movie.getId());
-            obrisiFilmUpit.executeUpdate();
+            deleteMovieQuery.setInt(1, movie.getId());
+            deleteMovieQuery.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void obrisiZaduzenje(Issued issued) {
+    public void deleteIssued(Issued issued) {
         try {
-            obrisiZaduzenjeUpit.setInt(1, issued.getId());
-            obrisiZaduzenjeUpit.executeUpdate();
+            deleteIssuedQuery.setInt(1, issued.getId());
+            deleteIssuedQuery.executeUpdate();
         } catch (SQLException e) {
             //e.printStackTrace();
         }
     }
 
-    public void dodajClan(Member member) {
+    public void addMember(Member member) {
         try {
-            ResultSet rs = odrediIdClanaUpit.executeQuery();
-            int id = 1;
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
 
-            dodajClanUpit.setInt(1, id);
-            dodajClanUpit.setString(2, member.getNaziv());
-            dodajClanUpit.setString(3, member.getBrojTelefona());
-            dodajClanUpit.setString(4, member.getEmail());
-            dodajClanUpit.executeUpdate();
+            ResultSet rs = chooseIdMemberQuery.executeQuery();
+            int id=1;
+            if (rs.next()) id = rs.getInt(1);
+            member.setId(id);
+
+            addMemberQuery.setInt(1, member.getId());
+            addMemberQuery.setString(2, member.getName());
+            addMemberQuery.setString(3, member.getMobile());
+            addMemberQuery.setString(4, member.getEmail());
+            addMemberQuery.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void dodajFilm(Movie movie) {
+    public void addMovie(Movie movie) {
         try {
-            ResultSet rs = odrediIdFilmaUpit.executeQuery();
+            ResultSet rs = chooseIdMovieQuery.executeQuery();
             int id = 1;
             if (rs.next()) {
                 id = rs.getInt(1);
             }
 
-            dodajFilmUpit.setInt(1, id);
-            dodajFilmUpit.setString(2, movie.getNaziv());
-            dodajFilmUpit.setString(3, movie.getZanr());
-            dodajFilmUpit.setInt(4, movie.getGodinaIzdanja());
-            dodajFilmUpit.setString(5, movie.getGlavniGlumac());
-            dodajFilmUpit.setInt(6, movie.getKolicina());
+            addMovieQuery.setInt(1, id);
+            addMovieQuery.setString(2, movie.getName());
+            addMovieQuery.setString(3, movie.getGenre());
+            addMovieQuery.setInt(4, movie.getYear());
+            addMovieQuery.setString(5, movie.getActor());
+            addMovieQuery.setInt(6, movie.getQuantity());
 
-            dodajFilmUpit.executeUpdate();
+            addMovieQuery.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void dodajZaduzenje(Issued issued) {
+    public void addIssued(Issued issued) {
         try {
-            ResultSet rs = odrediIdZaduzenjaUpit.executeQuery();
+            ResultSet rs = chooseIdIssuedQuery.executeQuery();
             int id = 1;
             if (rs.next()) {
                 id = rs.getInt(1);
             }
 
-            dodajZaduzenjeUpit.setInt(1, id);
-            dodajZaduzenjeUpit.setInt(2, issued.getMember().getId());
-            dodajZaduzenjeUpit.setInt(3, issued.getMovie().getId());
-            dodajZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumZaduzenja()));
-            dodajZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumRazduzenja()));
-            dodajZaduzenjeUpit.executeUpdate();
+            addIssuedQuery.setInt(1, id);
+            addIssuedQuery.setInt(2, issued.getMember().getId());
+            addIssuedQuery.setInt(3, issued.getMovie().getId());
+            addIssuedQuery.setDate(4, Date.valueOf(issued.getDateCharge()));
+            addIssuedQuery.setDate(4, Date.valueOf(issued.getDateDischarge()));
+            addIssuedQuery.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Member nadjiClan(String nazivClana) {
+    public Member findMember(String memberName) {
         try {
-            nadjiClanaUpit.setString(1, nazivClana);
-            ResultSet rs = nadjiClanaUpit.executeQuery();
+            chooseMemberQuery.setString(1, memberName);
+            ResultSet rs = chooseMemberQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajClanIzResultSeta(rs);
+            return giveMemberFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
         }
     }
 
-    public Movie nadjiFilm(String nazivFilma) {
+    public Movie findMovie(String movieTitle) {
         try {
-            nadjiFilmUpit.setString(1, nazivFilma);
-            ResultSet rs = nadjiFilmUpit.executeQuery();
+            chooseMovieQuery.setString(1, movieTitle);
+            ResultSet rs = chooseMovieQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajFilmIzResultSeta(rs);
+            return giveMovieFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
         }
     }
 
-    public Issued nadjiZaduzenje(String idZaduzenja) {
+    public Issued findIssued(String idIssued) {
         try {
-            nadjiZaduzenjeUpit.setString(1, idZaduzenja);
-            ResultSet rs = nadjiZaduzenjeUpit.executeQuery();
+            chooseIssuedQuery.setString(1, idIssued);
+            ResultSet rs = chooseIssuedQuery.executeQuery();
             if (!rs.next()) return null;
-            return dajZaduzenjeIzResultSeta(rs);
+            return giveIssuedFromResultSet(rs);
         } catch (SQLException e) {
             //e.printStackTrace();
             return null;
         }
     }
 
-    public void promijeniClana(Member member) {
+    public void changeMember(Member member) {
         try {
 
-            promijeniClanUpit.setString(1, member.getNaziv());
-            promijeniClanUpit.setString(2, member.getBrojTelefona());
-            promijeniClanUpit.setString(3, member.getEmail());
-            promijeniClanUpit.setInt(4, member.getId());
-            promijeniClanUpit.executeUpdate();
+            changeMemberQuery.setString(1, member.getName());
+            changeMemberQuery.setString(2, member.getMobile());
+            changeMemberQuery.setString(3, member.getEmail());
+            changeMemberQuery.setInt(4, member.getId());
+            changeMemberQuery.executeUpdate();
 
 
         } catch (SQLException e) {
@@ -348,17 +351,17 @@ public class VideoStoreDAO {
         }
     }
 
-    public void promijeniFilm(Movie movie) {
+    public void changeMovie(Movie movie) {
         try {
 
-            promijeniFilmUpit.setString(1, movie.getNaziv());
-            promijeniFilmUpit.setString(2, movie.getZanr());
-            promijeniFilmUpit.setInt(3, movie.getGodinaIzdanja());
-            promijeniFilmUpit.setString(4, movie.getGlavniGlumac());
-            promijeniFilmUpit.setInt(5, movie.getKolicina());
-            promijeniFilmUpit.setInt(6, movie.getId());
+            changeMovieQuery.setString(1, movie.getName());
+            changeMovieQuery.setString(2, movie.getGenre());
+            changeMovieQuery.setInt(3, movie.getYear());
+            changeMovieQuery.setString(4, movie.getActor());
+            changeMovieQuery.setInt(5, movie.getQuantity());
+            changeMovieQuery.setInt(6, movie.getId());
 
-            promijeniFilmUpit.executeUpdate();
+            changeMovieQuery.executeUpdate();
 
 
         } catch (SQLException e) {
@@ -366,15 +369,15 @@ public class VideoStoreDAO {
         }
     }
 
-    public void promijeniZaduzenje(Issued issued) {
+    public void changeIssued(Issued issued) {
         try {
 
-            promijeniZaduzenjeUpit.setInt(1, issued.getMember().getId());
-            promijeniZaduzenjeUpit.setInt(2, issued.getMovie().getId());
-            promijeniZaduzenjeUpit.setDate(3, Date.valueOf(issued.getDatumZaduzenja()));
-            promijeniZaduzenjeUpit.setDate(4, Date.valueOf(issued.getDatumRazduzenja()));
-            promijeniZaduzenjeUpit.setInt(5, issued.getId());
-            promijeniZaduzenjeUpit.executeUpdate();
+            changeIssuedQuery.setInt(1, issued.getMember().getId());
+            changeIssuedQuery.setInt(2, issued.getMovie().getId());
+            changeIssuedQuery.setDate(3, Date.valueOf(issued.getDateCharge()));
+            changeIssuedQuery.setDate(4, Date.valueOf(issued.getDateDischarge()));
+            changeIssuedQuery.setInt(5, issued.getId());
+            changeIssuedQuery.executeUpdate();
 
 
         } catch (SQLException e) {

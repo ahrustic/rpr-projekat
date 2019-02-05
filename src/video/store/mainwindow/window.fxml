@@ -18,43 +18,42 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Dodaj admina" />
                     <MenuItem mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="Zaduzenja">
+                  <Menu mnemonicParsing="false" text="Issued">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#listaZaduzenja" text="Otvori listu" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionDodajZaduzenje" text="Dodaj" />
+                      <MenuItem mnemonicParsing="false" onAction="#listIssued" text="Open list" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionAddIssued" text="Add" />
                     </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Film">
+                <Menu mnemonicParsing="false" text="Movie">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#listaFilmova" text="Otvori listu" />
-                    <MenuItem mnemonicParsing="false" onAction="#actionDodajFilm" text="Dodaj " />
+                        <MenuItem mnemonicParsing="false" onAction="#listMovie" text="Open list" />
+                    <MenuItem mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="Clan">
+                  <Menu mnemonicParsing="false" text="Member">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#listaClanova" text="Otvori listu" />
-                      <MenuItem mnemonicParsing="false" onAction="#actionDodajClan" text="Dodaj" />
+                        <MenuItem mnemonicParsing="false" onAction="#listMember" text="Open list" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionAddMember" text="Add" />
                     </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="About">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
          </children>
       </VBox>
-      <Button fx:id="zaduzenjeBtn" layoutX="25.0" layoutY="86.0" mnemonicParsing="false" onAction="#actionDodajZaduzenje" prefHeight="78.0" prefWidth="153.0" styleClass="login-button" text="Dodaj issued" />
-      <Button fx:id="filmBtn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionDodajFilm" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Dodaj movie" />
-      <Button fx:id="clanBtn" layoutX="219.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionDodajClan" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Dodaj clana" />
-      <Button fx:id="issuedBtn" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#listaZaduzenja" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Zaduzenja" />
-      <Button fx:id="moviesBtn" layoutX="408.0" layoutY="287.0" mnemonicParsing="false" onAction="#listaFilmova" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Filmovi" />
-      <Button fx:id="membersBtn" layoutX="219.0" layoutY="326.0" mnemonicParsing="false" onAction="#listaClanova" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Clanovi" />
+      <Button fx:id="zaduzenjeBtn" layoutX="32.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add issued" />
+      <Button fx:id="filmBtn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddMovie" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add movie" />
+      <Button fx:id="clanBtn" layoutX="219.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionAddMember" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add member" />
+      <Button fx:id="issuedBtn" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#listIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Issued" />
+      <Button fx:id="moviesBtn" layoutX="408.0" layoutY="287.0" mnemonicParsing="false" onAction="#listMovie" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Movies" />
+      <Button fx:id="membersBtn" layoutX="219.0" layoutY="326.0" mnemonicParsing="false" onAction="#listMember" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Members" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="180.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/icons/welcome.jpg" />

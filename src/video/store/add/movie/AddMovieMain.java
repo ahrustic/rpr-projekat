@@ -1,23 +1,22 @@
-package video.store.issuelist;
+package video.store.add.movie;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import video.store.login.LoginController;
 
 
-public class IssuedMain extends Application {
+public class AddMovieMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("issued.fxml"));
-        IssuedController ctrl = new IssuedController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addMovie.fxml"));
+        AddMovieController ctrl = new AddMovieController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Issued");
-        primaryStage.setScene(new Scene(root, 722, 456));
+        primaryStage.setTitle("Add movie");
+        primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
     }
 

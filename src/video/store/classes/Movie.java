@@ -3,19 +3,21 @@ package video.store.classes;
 public class Movie {
 
     private int id;
-    private String naziv;
-    private String zanr;
-    private int godinaIzdanja;
-    private String glavniGlumac;
-    private int kolicina;
+    private String name;
+    private String genre;
+    private int year;
+    private String actor;
+    private String production;
+    private int quantity;
 
-    public Movie(int id, String naziv, String zanr, int godnaIzdanja, String glavniGlumac, int kolicina) {
+    public Movie(int id, String name, String genre, int godnaIzdanja, String actor, String production, int quantity) {
         this.id = id;
-        this.naziv = naziv;
-        this.zanr = zanr;
-        this.godinaIzdanja = godnaIzdanja;
-        this.glavniGlumac = glavniGlumac;
-        this.kolicina = kolicina;
+        this.name = name;
+        this.genre = genre;
+        this.year = godnaIzdanja;
+        this.actor = actor;
+        this.production = production;
+        this.quantity = quantity;
     }
 
     public Movie() {
@@ -30,43 +32,56 @@ public class Movie {
         this.id = id;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getZanr() {
-        return zanr;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setZanr(String zanr) {
-        this.zanr = zanr;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public int getGodinaIzdanja() {
-        return godinaIzdanja;
+    public int getYear() {
+        return year;
     }
 
-    public void setGodinaIzdanja(int godinaIzdanja) {
-        this.godinaIzdanja = godinaIzdanja;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public String getGlavniGlumac() {
-        return glavniGlumac;
+    public String getActor() {
+        return actor;
     }
 
-    public void setGlavniGlumac(String glavniGlumac) {
-        this.glavniGlumac = glavniGlumac;
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 
-    public int getKolicina() {
-        return kolicina;
+    public String getProduction() {
+        return production;
     }
 
-    public void setKolicina(int kolicina) {
-        this.kolicina = kolicina;
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "" + name;
     }
 }

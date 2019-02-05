@@ -14,12 +14,12 @@
             <Image url="@/icons/videostore.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="29.0" layoutY="36.0" prefHeight="52.0" prefWidth="234.0" text="VIDEOTEKA">
+      <Label layoutX="29.0" layoutY="36.0" prefHeight="52.0" prefWidth="234.0" text="Video Store">
          <font>
             <Font name="Yu Gothic Regular" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="29.0" layoutY="88.0" prefHeight="52.0" prefWidth="234.0" text="AMILA  HRUSTIĆ">
+      <Label layoutX="29.0" layoutY="88.0" prefHeight="52.0" prefWidth="234.0" text="Amila  Hrustić">
          <font>
             <Font name="Yu Gothic Regular" size="18.0" />
          </font>
