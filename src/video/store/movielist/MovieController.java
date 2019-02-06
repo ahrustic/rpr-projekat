@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class MovieController implements Initializable {
-    ObservableList<Movie> listaFilmova;
+    ObservableList<Movie> movieList;
 
     @FXML
     private StackPane rootPane;
@@ -55,13 +55,13 @@ public class MovieController implements Initializable {
 
     public MovieController() {
         dao = VideoStoreDAO.getInstance();
-        listaFilmova = FXCollections.observableArrayList(dao.movies());
+        movieList = FXCollections.observableArrayList(dao.movies());
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tableView.setItems(listaFilmova);
+        tableView.setItems(movieList);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
@@ -89,7 +89,7 @@ public class MovieController implements Initializable {
                 Movie newMovie = movieController.getMovie();
                 if (newMovie != null) {
                     dao.addMovie(newMovie);
-                    listaFilmova.setAll(dao.movies());
+                    movieList.setAll(dao.movies());
                 }
             } );
         } catch (IOException e) {
@@ -117,7 +117,7 @@ public class MovieController implements Initializable {
                 Movie newMovie = movieController.getMovie();
                 if (newMovie != null) {
                     dao.changeMovie(newMovie);
-                    listaFilmova.setAll(dao.movies());
+                    movieList.setAll(dao.movies());
                 }
             } );
         } catch (IOException e) {
@@ -136,7 +136,7 @@ public class MovieController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             dao.deleteMovie(movie);
-            listaFilmova.setAll(dao.movies());
+            movieList.setAll(dao.movies());
         }
     }
 

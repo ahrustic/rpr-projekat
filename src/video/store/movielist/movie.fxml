@@ -42,19 +42,19 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
-                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionChangeMovie" text="Change" />
-                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionDeleteMovie" text="Delete" />
-                        <MenuItem fx:id="zatvori" mnemonicParsing="false" onAction="#clickCancel" text="Close" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionChangeMovie" text="Change" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionDeleteMovie" text="Delete" />
+                        <MenuItem  mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                      </items>
                   </Menu>
                </menus>
             </MenuBar>
             <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
                <buttons>
-                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionAddMovie" styleClass="login-button" text="Add" />
-                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionChangeMovie" styleClass="login-button" text="Change" />
-                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionDeleteMovie" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
+                  <Button fx:id="addBtn" mnemonicParsing="false" onAction="#actionAddMovie" styleClass="login-button" text="Add" />
+                  <Button fx:id="changeBtn" mnemonicParsing="false" onAction="#actionChangeMovie" styleClass="login-button" text="Change" />
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#actionDeleteMovie" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
                </buttons>
             </ButtonBar>
         </children>

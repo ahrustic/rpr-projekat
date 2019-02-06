@@ -20,7 +20,7 @@ public class AddMovieController implements Initializable {
     public TextField yearField;
     public TextField actorField;
     public TextField productionField;
-    public TextField quatityField;
+    public TextField quantityField;
     private boolean validTitle;
     private boolean validGenre;
     private boolean validYear;
@@ -46,7 +46,7 @@ public class AddMovieController implements Initializable {
         stage.close();
     }
 
-    private boolean ispravnost(String n) {
+    private boolean everyThingOk(String n) {
         if (n.length() < 1 || n.length() > 20) return false;
         for (int i = 0; i < n.length(); i++) {
             if (!(n.charAt(i) >= 'A' && n.charAt(i) <= 'Z') && !(n.charAt(i) >= 'a' && n.charAt(i) <= 'z') && n.charAt(i) != ' ')
@@ -55,7 +55,7 @@ public class AddMovieController implements Initializable {
         return !n.trim().isEmpty();
     }
 
-    private boolean ispravnostKolicine(String n){
+    private boolean validQuantity(String n){
         for (int i = 0; i < n.length(); i++) {
             if (!(n.charAt(i) >= '0' && n.charAt(i) <= '9'))
                 return false;
@@ -75,21 +75,44 @@ public class AddMovieController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        OK = validity(titleField);
-        OK &= validity(genreField);
-        OK &= validity(yearField);
-        OK = validity(actorField);
-        OK &= validity(productionField);
-        OK &= validity(quatityField);
-
         if (movie != null) {
             titleField.setText(movie.getName());
             genreField.setText(movie.getGenre());
             yearField.setText(Integer.toString(movie.getYear()));
             actorField.setText(movie.getActor());
             productionField.setText(movie.getProduction());
-            quatityField.setText(Integer.toString(movie.getQuantity()));
+            quantityField.setText(movie.getQuantity());
         }
+
+
+
+    }
+
+    private boolean validity(TextField polje) {
+     try{
+        if (polje.getText().trim().isEmpty()) {
+            polje.getStyleClass().removeAll("valid");
+            polje.getStyleClass().add("notValid");
+            return false;
+        } else {
+            polje.getStyleClass().removeAll("notValid");
+            polje.getStyleClass().add("valid");
+        }
+        return true;
+     } catch (Exception e){
+
+        }
+        return true;
+    }
+
+    public void ok(javafx.event.ActionEvent actionEvent){
+
+        OK = validity(titleField);
+        OK &= validity(genreField);
+        OK &= validity(yearField);
+        OK = validity(actorField);
+        OK &= validity(productionField);
+        OK &= validity(quantityField);
 
         validTitle = false;
         validGenre = false;
@@ -97,23 +120,17 @@ public class AddMovieController implements Initializable {
         validYear = false;
         validProduction = false;
         validQuantity = false;
-        titleField.getStyleClass().add("notValid");
-        genreField.getStyleClass().add("notValid");
-        yearField.getStyleClass().add("notValid");
-        actorField.getStyleClass().add("notValid");
-        productionField.getStyleClass().add("notValid");
-        quatityField.getStyleClass().add("notValid");
 
         titleField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
-                if(ispravnost(n)) {
+                if(everyThingOk(n)) {
                     titleField.getStyleClass().removeAll("notValid");
-                    titleField.getStyleClass().add("validan");
+                    titleField.getStyleClass().add("valid");
                     validTitle = true;
                 }
                 else {
-                    titleField.getStyleClass().removeAll("validan");
+                    titleField.getStyleClass().removeAll("valid");
                     titleField.getStyleClass().add("notValid");
                     validTitle = false;
                     OK = false;
@@ -124,14 +141,14 @@ public class AddMovieController implements Initializable {
         genreField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
-                if(ispravnost(n)) {
+                if(everyThingOk(n)) {
                     genreField.getStyleClass().removeAll("notValid");
-                    genreField.getStyleClass().add("validan");
+                    genreField.getStyleClass().add("valid");
                     validGenre = true;
-                    OK = true;
+
                 }
                 else {
-                    genreField.getStyleClass().removeAll("validan");
+                    genreField.getStyleClass().removeAll("valid");
                     genreField.getStyleClass().add("notValid");
                     validGenre = false;
                     OK = false;
@@ -144,12 +161,12 @@ public class AddMovieController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
                 if(ispravnostGodine(n)) {
                     yearField.getStyleClass().removeAll("notValid");
-                    yearField.getStyleClass().add("validan");
+                    yearField.getStyleClass().add("valid");
                     validYear = true;
-                    OK = true;
+
                 }
                 else {
-                    yearField.getStyleClass().removeAll("validan");
+                    yearField.getStyleClass().removeAll("valid");
                     yearField.getStyleClass().add("notValid");
                     validYear = false;
                     OK = false;
@@ -160,14 +177,14 @@ public class AddMovieController implements Initializable {
         actorField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
-                if(ispravnost(n)) {
+                if(everyThingOk(n)) {
                     actorField.getStyleClass().removeAll("notValid");
-                    actorField.getStyleClass().add("validan");
+                    actorField.getStyleClass().add("valid");
                     validActor = true;
-                    OK = true;
+
                 }
                 else {
-                    actorField.getStyleClass().removeAll("validan");
+                    actorField.getStyleClass().removeAll("valid");
                     actorField.getStyleClass().add("notValid");
                     validActor = false;
                     OK = false;
@@ -175,18 +192,17 @@ public class AddMovieController implements Initializable {
             }
         });
 
-        quatityField.textProperty().addListener(new ChangeListener<String>() {
+        quantityField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
-                if(ispravnostKolicine(n)) {
-                    quatityField.getStyleClass().removeAll("notValid");
-                    quatityField.getStyleClass().add("validan");
+                if(validQuantity(n)) {
+                    quantityField.getStyleClass().removeAll("notValid");
+                    quantityField.getStyleClass().add("valid");
                     validQuantity = true;
-                    OK = true;
                 }
                 else {
-                    quatityField.getStyleClass().removeAll("validan");
-                    quatityField.getStyleClass().add("notValid");
+                    quantityField.getStyleClass().removeAll("valid");
+                    quantityField.getStyleClass().add("notValid");
                     validQuantity = false;
                     OK = false;
                 }
@@ -196,13 +212,13 @@ public class AddMovieController implements Initializable {
         productionField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String n) {
-                if(ispravnost(n)) {
+                if(everyThingOk(n)) {
                     productionField.getStyleClass().removeAll("notValid");
-                    productionField.getStyleClass().add("validan");
+                    productionField.getStyleClass().add("valid");
                     validProduction = true;
                 }
                 else {
-                    productionField.getStyleClass().removeAll("validan");
+                    productionField.getStyleClass().removeAll("valid");
                     productionField.getStyleClass().add("notValid");
                     validProduction = false;
                     OK = false;
@@ -210,29 +226,20 @@ public class AddMovieController implements Initializable {
             }
         });
 
-    }
-
-    private boolean validity(TextField polje) {
-        if (polje.getText().trim().isEmpty()) {
-            polje.getStyleClass().removeAll("valid");
-            polje.getStyleClass().add("notValid");
-            return false;
-        } else {
-            polje.getStyleClass().removeAll("notValid");
-            polje.getStyleClass().add("valid");
-        }
-        return true;
-    }
-
-    public void ok(javafx.event.ActionEvent actionEvent){
         if (!OK) return;
+        addChangeMovie(movie);
 
-        if (movie == null) movie = new Movie();
+    }
+
+    public void addChangeMovie(Movie movie){
+        if (movie == null) movie = new Movie(0, titleField.getText(),genreField.getText(), Integer.parseInt(yearField.getText()),actorField.getText(), productionField.getText(), quantityField.getText());
         movie.setName(titleField.getText());
         movie.setGenre((genreField.getText()));
         movie.setYear(Integer.parseInt(yearField.getText()));
         movie.setActor(actorField.getText());
-        movie.setQuantity(Integer.parseInt(quatityField.getText()));
+        movie.setProduction(productionField.getText());
+        movie.setQuantity(quantityField.getText());
+        movie.setId(movie.getId());
         Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();
     }

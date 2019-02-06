@@ -59,9 +59,9 @@ public class WindowController implements Initializable {
             stage.show();
 
             stage.setOnHiding( event -> {
-                Member noviclan = memberController.getClan();
-                if (noviclan != null) {
-                    dao.addMember(noviclan);
+                Member newMember = memberController.getClan();
+                if (newMember != null) {
+                    dao.addMember(newMember);
                     memberList.setAll(dao.members());
                 }
             } );

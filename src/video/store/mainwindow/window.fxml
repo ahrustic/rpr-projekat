@@ -48,10 +48,10 @@
             </MenuBar>
          </children>
       </VBox>
-      <Button fx:id="zaduzenjeBtn" layoutX="32.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add issued" />
-      <Button fx:id="filmBtn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddMovie" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add movie" />
-      <Button fx:id="clanBtn" layoutX="219.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionAddMember" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add member" />
-      <Button fx:id="issuedBtn" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#listIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Issued" />
+      <Button fx:id="issuedBtn" layoutX="32.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add issued" />
+      <Button fx:id="movietn" layoutX="408.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionAddMovie" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add movie" />
+      <Button fx:id="memberBtn" layoutX="219.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionAddMember" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Add member" />
+      <Button fx:id="issuedListBtn" layoutX="32.0" layoutY="287.0" mnemonicParsing="false" onAction="#listIssued" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Issued" />
       <Button fx:id="moviesBtn" layoutX="408.0" layoutY="287.0" mnemonicParsing="false" onAction="#listMovie" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Movies" />
       <Button fx:id="membersBtn" layoutX="219.0" layoutY="326.0" mnemonicParsing="false" onAction="#listMember" prefHeight="78.0" prefWidth="122.0" styleClass="login-button" text="Members" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="180.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">

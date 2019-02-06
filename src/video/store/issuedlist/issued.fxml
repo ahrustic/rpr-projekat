@@ -18,10 +18,10 @@
                 <TableView fx:id="tableView" layoutY="84.0" prefHeight="372.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
                     <columns>
                         <TableColumn fx:id="idCol" maxWidth="2800.0" prefWidth="60.0" text="ID" />
-                        <TableColumn fx:id="clanCol" prefWidth="75.0" text="Clan" />
-                        <TableColumn fx:id="filmCol" prefWidth="75.0" text="Film" />
-                        <TableColumn fx:id="zaduzenjeCol" prefWidth="75.0" text="Datum zaduzenja" />
-                  <TableColumn fx:id="razduzenjeCol" prefWidth="75.0" text="Datum razduzenja" />
+                        <TableColumn fx:id="memberCol" prefWidth="75.0" text="Member" />
+                        <TableColumn fx:id="movieCol" prefWidth="75.0" text="Movie" />
+                        <TableColumn fx:id="dateChargeCol" prefWidth="75.0" text="Charge date" />
+                  <TableColumn fx:id="dateDischargeCol" prefWidth="75.0" text="Discharge date" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -40,19 +40,19 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                        <MenuItem fx:id="dodajM" mnemonicParsing="false" onAction="#actionDodajZaduzenje" text="Dodaj" />
-                        <MenuItem fx:id="promijeniM" mnemonicParsing="false" onAction="#actionPromijeniZaduzenje" text="Promijeni" />
-                        <MenuItem fx:id="izbrisiM" mnemonicParsing="false" onAction="#actionObrisiZaduzenje" text="Izbrisi" />
-                                <MenuItem fx:id="zatvori" mnemonicParsing="false" onAction="#clickCancel" text="Close" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionAdd" text="Add" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionChange" text="Change" />
+                        <MenuItem  mnemonicParsing="false" onAction="#actionDelete" text="Delete" />
+                                <MenuItem  mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
             <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
               <buttons>
-                  <Button fx:id="dodajBtn" mnemonicParsing="false" onAction="#actionDodajZaduzenje" styleClass="login-button" text="Dodaj" />
-                  <Button fx:id="promijeniBtn" mnemonicParsing="false" onAction="#actionPromijeniZaduzenje" styleClass="login-button" text="Promijeni" />
-                  <Button fx:id="izbrisiBtn" mnemonicParsing="false" onAction="#actionObrisiZaduzenje" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Izbrisi" />
+                  <Button  mnemonicParsing="false" onAction="#actionAdd" styleClass="login-button" text="Add" />
+                  <Button  mnemonicParsing="false" onAction="#actionChange" styleClass="login-button" text="Change" />
+                  <Button  mnemonicParsing="false" onAction="#actionDelete" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
               </buttons>
             </ButtonBar>
             </children>

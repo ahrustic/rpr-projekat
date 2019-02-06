@@ -17,8 +17,8 @@ public class VideoStoreDAO {
     public Connection connection;
 
     private PreparedStatement getMoviesQuery, giveMovieQuery, giveMemberQuery, giveIssuedQuery, getMembersQuery, getIssuedQuery,
-            deleteMovieQuery, deleteMemberQuery, deleteIssuedQuery, addMemberQuery, addMovieQuery, addIssuedQuery, chooseIdMemberQuery,
-            chooseIdMovieQuery, chooseIdIssuedQuery, chooseMemberQuery, chooseMovieQuery, chooseIssuedQuery, changeMemberQuery,
+            deleteMovieQuery, deleteMemberQuery, deleteIssuedQuery, addMemberQuery, addMovieQuery, addIssuedQuery, IdMemberQuery,
+            chooseIdMovieQuery, chooseIdIssuedQuery, chooseMemberByNameQuery, chooseMovieByNameQuery, chooseIssuedQuery, changeMemberQuery,
             changeMovieQuery, changeIssuedQuery;
 
     public  static VideoStoreDAO getInstance(){
@@ -71,16 +71,16 @@ public class VideoStoreDAO {
             deleteMovieQuery = connection.prepareStatement("DELETE FROM movie WHERE id=?");
             deleteIssuedQuery = connection.prepareStatement("DELETE FROM issued WHERE id=?");
 
-            addMemberQuery = connection.prepareStatement("INSERT INTO member VALUES(?,?,?,?)");
-            addMovieQuery = connection.prepareStatement("INSERT INTO movie VALUES(?,?,?,?,?,?)");
+            addMemberQuery = connection.prepareStatement("INSERT INTO member VALUES(?,?,?,?,?)");
+            addMovieQuery = connection.prepareStatement("INSERT INTO movie VALUES(?,?,?,?,?,?,?)");
             addIssuedQuery = connection.prepareStatement("INSERT INTO issued VALUES(?,?,?,?,?)");
 
-            chooseIdMemberQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM member");
+            IdMemberQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM member");
             chooseIdMovieQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM movie");
             chooseIdIssuedQuery = connection.prepareStatement("SELECT MAX(id)+1 FROM issued");
 
-            chooseMemberQuery = connection.prepareStatement("SELECT * FROM member WHERE naziv=?");
-            chooseMovieQuery = connection.prepareStatement("SELECT * FROM movie WHERE naziv=?");
+            chooseMemberByNameQuery = connection.prepareStatement("SELECT * FROM member WHERE naziv=?");
+            chooseMovieByNameQuery = connection.prepareStatement("SELECT * FROM movie WHERE naziv=?");
             chooseIssuedQuery = connection.prepareStatement("SELECT * FROM zaduzenje WHERE id=?");
 
             changeMemberQuery = connection.prepareStatement("UPDATE member SET name=?, mobile=?, email=? WHERE id=?");
@@ -148,7 +148,7 @@ public class VideoStoreDAO {
     }
 
     private Movie giveMovieFromResultSet(ResultSet rs) throws SQLException {
-        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
     }
 
     private Issued giveIssued(int id) {
@@ -164,7 +164,7 @@ public class VideoStoreDAO {
 
     }
 
-    private Issued giveIssuedFromResultSet(ResultSet rs) throws SQLException {
+    private Issued giveIssuedFromResultSet(ResultSet rs)  throws SQLException{
         LocalDate charged = rs.getDate(4).toLocalDate();
         LocalDate discharged = rs.getDate(5).toLocalDate();
         return new Issued(rs.getInt(1), giveMember(rs.getInt(2)), giveMovie(rs.getInt(3)) , charged, discharged);
@@ -242,7 +242,7 @@ public class VideoStoreDAO {
     public void addMember(Member member) {
         try {
 
-            ResultSet rs = chooseIdMemberQuery.executeQuery();
+            ResultSet rs = IdMemberQuery.executeQuery();
             int id=1;
             if (rs.next()) id = rs.getInt(1);
             member.setId(id);
@@ -271,7 +271,7 @@ public class VideoStoreDAO {
             addMovieQuery.setString(3, movie.getGenre());
             addMovieQuery.setInt(4, movie.getYear());
             addMovieQuery.setString(5, movie.getActor());
-            addMovieQuery.setInt(6, movie.getQuantity());
+            addMovieQuery.setString(6, movie.getQuantity());
 
             addMovieQuery.executeUpdate();
 
@@ -302,8 +302,8 @@ public class VideoStoreDAO {
 
     public Member findMember(String memberName) {
         try {
-            chooseMemberQuery.setString(1, memberName);
-            ResultSet rs = chooseMemberQuery.executeQuery();
+            chooseMemberByNameQuery.setString(1, memberName);
+            ResultSet rs = chooseMemberByNameQuery.executeQuery();
             if (!rs.next()) return null;
             return giveMemberFromResultSet(rs);
         } catch (SQLException e) {
@@ -314,8 +314,8 @@ public class VideoStoreDAO {
 
     public Movie findMovie(String movieTitle) {
         try {
-            chooseMovieQuery.setString(1, movieTitle);
-            ResultSet rs = chooseMovieQuery.executeQuery();
+            chooseMovieByNameQuery.setString(1, movieTitle);
+            ResultSet rs = chooseMovieByNameQuery.executeQuery();
             if (!rs.next()) return null;
             return giveMovieFromResultSet(rs);
         } catch (SQLException e) {
@@ -358,7 +358,7 @@ public class VideoStoreDAO {
             changeMovieQuery.setString(2, movie.getGenre());
             changeMovieQuery.setInt(3, movie.getYear());
             changeMovieQuery.setString(4, movie.getActor());
-            changeMovieQuery.setInt(5, movie.getQuantity());
+            changeMovieQuery.setString(5, movie.getQuantity());
             changeMovieQuery.setInt(6, movie.getId());
 
             changeMovieQuery.executeUpdate();
@@ -387,3 +387,11 @@ public class VideoStoreDAO {
 
 
 }
+
+
+//todo napisati upite za pretrazivanje po godini, zanru, glumcu za film
+//todo omoguciti dodavanje i izmjenu
+//todo provjeriti kako rijesti problem sa datumom
+//todo xml dio
+//todo dodati makar jedan izvjesta za stanje filmova
+//todo napisati nekoliko osnovnih testova

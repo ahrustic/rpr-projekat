@@ -81,9 +81,6 @@ public class AddMemberController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        OK = validity(nameField);
-        OK &= validity(emailField);
-        OK &= validity(mobileField);
 
         if (member != null){
             nameField.setText(member.getName());
@@ -91,12 +88,27 @@ public class AddMemberController implements Initializable {
             emailField.setText(member.getEmail());
         }
 
-        validName = false;
-        nameField.getStyleClass().add("notValid");
-        validEmail = false;
-        emailField.getStyleClass().add("notValid");
-        validMobile = false;
-        mobileField.getStyleClass().add("notValid");
+
+    }
+
+    private boolean validity(TextField field) {
+        if (field.getText().trim().isEmpty()) {
+            field.getStyleClass().removeAll("valid");
+            field.getStyleClass().add("notValid");
+            return false;
+        } else {
+            field.getStyleClass().removeAll("notValid");
+            field.getStyleClass().add("valid");
+        }
+        return true;
+    }
+
+    public void add(ActionEvent actionEvent){
+
+        OK = validity(nameField);
+        OK &= validity(emailField);
+        OK &= validity(mobileField);
+
 
         nameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -105,7 +117,6 @@ public class AddMemberController implements Initializable {
                     nameField.getStyleClass().removeAll("notValid");
                     nameField.getStyleClass().add("valid");
                     validName = true;
-                    OK = true;
                 }
                 else {
                     nameField.getStyleClass().removeAll("valid");
@@ -124,7 +135,6 @@ public class AddMemberController implements Initializable {
                     emailField.getStyleClass().removeAll("notValid");
                     emailField.getStyleClass().add("valid");
                     validEmail = true;
-                    OK = true;
                 }
                 else {
                     emailField.getStyleClass().removeAll("valid");
@@ -143,7 +153,7 @@ public class AddMemberController implements Initializable {
                     mobileField.getStyleClass().removeAll("notValid");
                     mobileField.getStyleClass().add("valid");
                     validMobile = true;
-                    OK = true;
+
                 }
                 else {
                     mobileField.getStyleClass().removeAll("valid");
@@ -154,36 +164,23 @@ public class AddMemberController implements Initializable {
             }
         });
 
-
-    }
-
-    private boolean validity(TextField polje) {
-        if (polje.getText().trim().isEmpty()) {
-            polje.getStyleClass().removeAll("valid");
-            polje.getStyleClass().add("notValid");
-            return false;
-        } else {
-            polje.getStyleClass().removeAll("notValid");
-            polje.getStyleClass().add("valid");
-        }
-        return true;
-    }
-
-    public void add(ActionEvent actionEvent){
         if (!OK) return;
 
-        if (member == null) {
-            member = new Member(0, nameField.getText(), mobileField.getText(), emailField.getText());
-            dao.addMember(member);
-
-        } else {
-            member.setName(nameField.getText());
-            member.setMobile(mobileField.getText());
-            member.setEmail(emailField.getText());
-            dao.changeMember(member);
-        }
+        dodajIzmijeniVlasnika(member);
 
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
     }
+
+    public void dodajIzmijeniVlasnika(Member member){
+        if (member == null) {
+        member = new Member(0, nameField.getText(), mobileField.getText(), emailField.getText());
+        dao.addMember(member);
+
+    } else {
+        member.setName(nameField.getText());
+        member.setMobile(mobileField.getText());
+        member.setEmail(emailField.getText());
+        dao.changeMember(member);
+    }}
 }
