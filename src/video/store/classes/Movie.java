@@ -8,9 +8,9 @@ public class Movie {
     private int year;
     private String actor;
     private String production;
-    private String quantity;
+    private int quantity;
 
-    public Movie(int id, String name, String genre, int godnaIzdanja, String actor, String production, String quantity) {
+    public Movie(int id, String name, String genre, int godnaIzdanja, String actor, String production, int quantity) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -72,11 +72,11 @@ public class Movie {
         this.production = production;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

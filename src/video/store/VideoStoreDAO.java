@@ -156,7 +156,7 @@ public class VideoStoreDAO {
     }
 
     private Movie giveMovieFromResultSet(ResultSet rs) throws SQLException {
-        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
+        return new Movie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7));
     }
 
     private Issued giveIssued(int id) {
@@ -279,7 +279,7 @@ public class VideoStoreDAO {
             addMovieQuery.setString(3, movie.getGenre());
             addMovieQuery.setInt(4, movie.getYear());
             addMovieQuery.setString(5, movie.getActor());
-            addMovieQuery.setString(6, movie.getQuantity());
+            addMovieQuery.setInt(6, movie.getQuantity());
 
             addMovieQuery.executeUpdate();
 
@@ -402,7 +402,7 @@ public class VideoStoreDAO {
             changeMovieQuery.setString(2, movie.getGenre());
             changeMovieQuery.setInt(3, movie.getYear());
             changeMovieQuery.setString(4, movie.getActor());
-            changeMovieQuery.setString(5, movie.getQuantity());
+            changeMovieQuery.setInt(5, movie.getQuantity());
             changeMovieQuery.setInt(6, movie.getId());
 
             changeMovieQuery.executeUpdate();
@@ -432,9 +432,7 @@ public class VideoStoreDAO {
 
 }
 
-
 //todo omoguciti dodavanje i izmjenu
 //todo provjeriti kako rijesti problem sa datumom
 //todo xml dio
-//todo dodati makar jedan izvjesta za stanje filmova
 //todo napisati nekoliko osnovnih testova

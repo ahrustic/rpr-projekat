@@ -81,7 +81,7 @@ public class AddMovieController implements Initializable {
             yearField.setText(Integer.toString(movie.getYear()));
             actorField.setText(movie.getActor());
             productionField.setText(movie.getProduction());
-            quantityField.setText(movie.getQuantity());
+            quantityField.setText(Integer.toString(movie.getQuantity()));
         }
 
 
@@ -232,13 +232,13 @@ public class AddMovieController implements Initializable {
     }
 
     public void addChangeMovie(Movie movie){
-        if (movie == null) movie = new Movie(0, titleField.getText(),genreField.getText(), Integer.parseInt(yearField.getText()),actorField.getText(), productionField.getText(), quantityField.getText());
+        if (movie == null) movie = new Movie(0, titleField.getText(),genreField.getText(), Integer.parseInt(yearField.getText()),actorField.getText(), productionField.getText(), Integer.parseInt(quantityField.getText()));
         movie.setName(titleField.getText());
         movie.setGenre((genreField.getText()));
         movie.setYear(Integer.parseInt(yearField.getText()));
         movie.setActor(actorField.getText());
         movie.setProduction(productionField.getText());
-        movie.setQuantity(quantityField.getText());
+        movie.setQuantity(Integer.parseInt(quantityField.getText()));
         movie.setId(movie.getId());
         Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();
