@@ -434,5 +434,4 @@ public class VideoStoreDAO {
 
 //todo omoguciti dodavanje i izmjenu
 //todo provjeriti kako rijesti problem sa datumom
-//todo xml dio
 //todo napisati nekoliko osnovnih testova
