@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+    <object class="java.util.ArrayList">
+        <void method="add">
+            <object class="video.store.classes.Issued">
+                <void property="id">
+                    <int>1</int>
+                </void>
+                <void property="member">
+                    <object class="video.store.classes.Member">
+                        <void property="id">
+                            <int>1</int>
+                        </void>
+                        <void property="name">
+                            <string>Mujo Mujic</string>
+                        </void>
+                        <void property="mobile">
+                            <string>060/123-456</string>
+                        </void>
+                        <void property="email">
+                            <string>mujo@live.com</string>
+                        </void>
+                    </object>
+                </void>
+                <void property="movie">
+                    <object class="video.store.classes.Movie">
+                        <void property="id">
+                            <int>1</int>
+                        </void>
+                        <void property="name">
+                            <string>Bumblebee</string>
+                        </void>
+                        <void property="genre">
+                            <string>Akcija</string>
+                        </void>
+                        <void property="year">
+                            <int>2018</int>
+                        </void>
+                        <void property="actor">
+                            <string>Hailee Steinfeld </string>
+                        </void>
+                        <void property="production">
+                            <string>Marvel</string>
+                        </void>
+                        <void property="quantity">
+                            <int>5</int>
+                        </void>
+                    </object>
+                </void>
+            </object>
+        </void>
+        <void method="dateCharge">
+            <LocalDate>LocalDate.now()</LocalDate>
+        </void>
+            <void property="dateDischarge">
+                <LocalDate>null</LocalDate>
+            </void>
+    </object>
+</java>

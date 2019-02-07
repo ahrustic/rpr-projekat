@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+    <object class="java.util.ArrayList">
+        <void method="add">
+            <object class="video.store.classes.Movie">
+                <void property="id">
+                    <int>1</int>
+                </void>
+                <void property="name">
+                    <string>Bumblebee</string>
+                </void>
+                <void property="genre">
+                    <string>Akcija</string>
+                </void>
+                <void property="year">
+                    <int>2018</int>
+                </void>
+                <void property="actor">
+                    <string>Hailee Steinfeld </string>
+                </void>
+                <void property="production">
+                    <string>Marvel</string>
+                </void>
+                <void property="quantity">
+                    <int>5</int>
+                </void>
+            </object>
+        </void>
+    </object>
+</java>

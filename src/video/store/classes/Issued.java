@@ -8,7 +8,7 @@ public class Issued {
     private Member member;
     private Movie movie;
     private LocalDate dateCharge = LocalDate.now();
-    private LocalDate dateDischarge = LocalDate.now();
+    private LocalDate dateDischarge;
 
     public Issued(int id, Member member, Movie movie, LocalDate dateCharge, LocalDate dateDischarge) {
         this.id = id;
@@ -20,7 +20,7 @@ public class Issued {
 
     public Issued(){
         dateCharge = LocalDate.now();
-        dateDischarge = LocalDate.now();
+        dateDischarge = null;
     }
 
     public int getId() {
