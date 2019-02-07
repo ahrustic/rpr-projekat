@@ -51,6 +51,7 @@ public class WindowController implements Initializable {
         Stage stage = new Stage();
         Parent root = null;
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../add/member/addMember.fxml"));
             AddMemberController memberController = new AddMemberController();
             loader.setController(memberController);

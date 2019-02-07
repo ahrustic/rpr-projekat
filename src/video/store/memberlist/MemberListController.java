@@ -109,7 +109,6 @@ public class MemberListController implements Initializable {
             e.printStackTrace();
         }
     }
-
     public void actionDeleteMember(ActionEvent actionEvent) {
         Member member = tableView.getSelectionModel().getSelectedItem();
         if (member == null) return;
