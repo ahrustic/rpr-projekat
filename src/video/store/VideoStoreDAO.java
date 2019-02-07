@@ -32,6 +32,10 @@ public class VideoStoreDAO {
         instance = null;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     public void close() {
         try {
             connection.close();

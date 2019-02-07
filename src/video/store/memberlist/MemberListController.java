@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import video.store.VideoStoreDAO;
 import video.store.add.member.AddMemberController;
 import video.store.classes.Member;
+import video.store.classes.Movie;
+import video.store.find.FindMovieActorController;
 
 import java.io.File;
 import java.io.IOException;

@@ -18,6 +18,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
+                        <MenuItem mnemonicParsing="false" onAction="#printReport" text="Report" />
                     <MenuItem mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                   </items>
                 </Menu>

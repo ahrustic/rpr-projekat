@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import video.store.PrintReport;
 import video.store.VideoStoreDAO;
 import video.store.about.AboutController;
 import video.store.add.issue.AddIssueController;
@@ -190,5 +192,13 @@ public class WindowController implements Initializable {
 
     public void clickCancel(ActionEvent actionEvent) {
         Platform.exit();
+    }
+
+    public void printReport(ActionEvent actionEvent) {
+        try {
+            new PrintReport().showReport(dao.getConnection());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
     }
 }
