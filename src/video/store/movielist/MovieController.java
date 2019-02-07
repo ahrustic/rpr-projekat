@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import video.store.VideoStoreDAO;
 import video.store.add.movie.AddMovieController;
 import video.store.classes.Movie;
+import video.store.find.FindMovieActorController;
+import video.store.find.FindMovieProductionController;
+import video.store.find.FindMovieYearController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -137,6 +140,100 @@ public class MovieController implements Initializable {
         if (result.get() == ButtonType.OK){
             dao.deleteMovie(movie);
             movieList.setAll(dao.movies());
+        }
+    }
+
+
+    public void actionFindActorMovie(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../find/findBy.fxml"));
+            FindMovieActorController movieController = new FindMovieActorController();
+            loader.setController(movieController);
+            root = loader.load();
+            stage.setTitle("Find movie");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            stage.setOnHiding( event -> {
+                Movie newMovie = movieController.find();
+                if (newMovie == null) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("There is no movie with this actor");
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("" + newMovie.getId() + "\n" + newMovie.getName() + "\n" + newMovie.getGenre() + "\n" + newMovie.getYear() + "\n" + newMovie.getActor() + "\n" + newMovie.getQuantity());
+                }
+            } );
+        } catch (IOException e) {
+             e.printStackTrace();
+        }
+    }
+
+    public void actionFindYearMovie(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../find/findBy.fxml"));
+            FindMovieYearController movieController = new FindMovieYearController();
+            loader.setController(movieController);
+            root = loader.load();
+            stage.setTitle("Find movie");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            stage.setOnHiding( event -> {
+                Movie newMovie = movieController.find();
+                if (newMovie == null) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("There is no movie with this year");
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("" + newMovie.getId() + "\n" + newMovie.getName() + "\n" + newMovie.getGenre() + "\n" + newMovie.getYear() + "\n" + newMovie.getActor() + "\n" + newMovie.getQuantity());
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionFindProductionMovie(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../find/findBy.fxml"));
+            FindMovieProductionController movieController = new FindMovieProductionController();
+            loader.setController(movieController);
+            root = loader.load();
+            stage.setTitle("Find movie");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            stage.setOnHiding( event -> {
+                Movie newMovie = movieController.find();
+                if (newMovie == null) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("There is no movie with this production");
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Find");
+                    alert.setContentText("" + newMovie.getId() + "\n" + newMovie.getName() + "\n" + newMovie.getGenre() + "\n" + newMovie.getYear() + "\n" + newMovie.getActor() + "\n" + newMovie.getQuantity());
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

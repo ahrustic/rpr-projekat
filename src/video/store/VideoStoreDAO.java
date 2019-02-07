@@ -19,7 +19,7 @@ public class VideoStoreDAO {
     private PreparedStatement getMoviesQuery, giveMovieQuery, giveMemberQuery, giveIssuedQuery, getMembersQuery, getIssuedQuery,
             deleteMovieQuery, deleteMemberQuery, deleteIssuedQuery, addMemberQuery, addMovieQuery, addIssuedQuery, IdMemberQuery,
             chooseIdMovieQuery, chooseIdIssuedQuery, chooseMemberByNameQuery, chooseMovieByNameQuery, chooseIssuedQuery, changeMemberQuery,
-            changeMovieQuery, changeIssuedQuery;
+            changeMovieQuery, changeIssuedQuery, findYearMovieQuery, findGenreMovieQuery, findActorMovieQuery, findProductionMovieQuery;
 
     public  static VideoStoreDAO getInstance(){
         if (instance == null) instance = new VideoStoreDAO();
@@ -86,6 +86,11 @@ public class VideoStoreDAO {
             changeMemberQuery = connection.prepareStatement("UPDATE member SET name=?, mobile=?, email=? WHERE id=?");
             changeMovieQuery = connection.prepareStatement("UPDATE movie SET name=?, genre=?, year=?, actor=?, production=?, quantity=? WHERE id=?");
             changeIssuedQuery = connection.prepareStatement("UPDATE issued SET movie=?, member=?, date_charge=?, date_discharge=? WHERE id=?");
+
+            findYearMovieQuery = connection.prepareStatement("SELECT year FROM movie WHERE name=?");
+            findGenreMovieQuery = connection.prepareStatement("SELECT genre FROM movie WHERE name=?");
+            findActorMovieQuery = connection.prepareStatement("SELECT actor FROM movie WHERE name=?");
+            findProductionMovieQuery = connection.prepareStatement("SELECT production FROM movie WHERE name=?");
 
 
         } catch (SQLException e) {
@@ -324,6 +329,42 @@ public class VideoStoreDAO {
         }
     }
 
+    public Movie findActorMovie(String movieTitle) {
+        try {
+            findActorMovieQuery.setString(1, movieTitle);
+            ResultSet rs = findActorMovieQuery.executeQuery();
+            if (!rs.next()) return null;
+            return giveMovieFromResultSet(rs);
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Movie findYearMovie(String movieTitle) {
+        try {
+            findYearMovieQuery.setString(1, movieTitle);
+            ResultSet rs = findYearMovieQuery.executeQuery();
+            if (!rs.next()) return null;
+            return giveMovieFromResultSet(rs);
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Movie findProductionMovie(String movieTitle) {
+        try {
+            findProductionMovieQuery.setString(1, movieTitle);
+            ResultSet rs = findProductionMovieQuery.executeQuery();
+            if (!rs.next()) return null;
+            return giveMovieFromResultSet(rs);
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
     public Issued findIssued(String idIssued) {
         try {
             chooseIssuedQuery.setString(1, idIssued);
@@ -389,7 +430,6 @@ public class VideoStoreDAO {
 }
 
 
-//todo napisati upite za pretrazivanje po godini, zanru, glumcu za film
 //todo omoguciti dodavanje i izmjenu
 //todo provjeriti kako rijesti problem sa datumom
 //todo xml dio

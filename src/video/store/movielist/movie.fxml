@@ -42,11 +42,18 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem  mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
-                        <MenuItem  mnemonicParsing="false" onAction="#actionChangeMovie" text="Change" />
-                        <MenuItem  mnemonicParsing="false" onAction="#actionDeleteMovie" text="Delete" />
-                        <MenuItem  mnemonicParsing="false" onAction="#clickCancel" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionAddMovie" text="Add" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionChangeMovie" text="Change" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionDeleteMovie" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                      </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Find by">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#actionFindActorMovie" text="Actor" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionFindYearMovie" text="Year" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionFindProductionMovie" text="Production" />
+                    </items>
                   </Menu>
                </menus>
             </MenuBar>
