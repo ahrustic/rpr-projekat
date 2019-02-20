@@ -17,7 +17,7 @@ public class WindowMain extends Application {
         WindowController ctrl = new WindowController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Video store");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
     }

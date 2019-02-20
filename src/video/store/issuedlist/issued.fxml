@@ -21,7 +21,7 @@
                         <TableColumn fx:id="memberCol" prefWidth="75.0" text="Member" />
                         <TableColumn fx:id="movieCol" prefWidth="75.0" text="Movie" />
                         <TableColumn fx:id="dateChargeCol" prefWidth="75.0" text="Charge date" />
-                  <TableColumn fx:id="dateDischargeCol" prefWidth="75.0" text="Discharge date" />
+                        <TableColumn fx:id="dateDischargeCol" prefWidth="75.0" text="Discharge date" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -40,21 +40,21 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                        <MenuItem  mnemonicParsing="false" onAction="#actionAdd" text="Add" />
-                        <MenuItem  mnemonicParsing="false" onAction="#actionChange" text="Change" />
-                        <MenuItem  mnemonicParsing="false" onAction="#actionDelete" text="Delete" />
+                                <MenuItem  mnemonicParsing="false" onAction="#actionAdd" text="Add" />
+                                <MenuItem  mnemonicParsing="false" onAction="#actionChange" text="Change" />
+                                <MenuItem  mnemonicParsing="false" onAction="#actionDelete" text="Delete" />
                                 <MenuItem  mnemonicParsing="false" onAction="#clickCancel" text="Close" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
-            <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
-              <buttons>
-                  <Button  mnemonicParsing="false" onAction="#actionAdd" styleClass="login-button" text="Add" />
-                  <Button  mnemonicParsing="false" onAction="#actionChange" styleClass="login-button" text="Change" />
-                  <Button  mnemonicParsing="false" onAction="#actionDelete" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
-              </buttons>
-            </ButtonBar>
+                <ButtonBar layoutY="32.0" prefHeight="40.0" prefWidth="322.0">
+                    <buttons>
+                        <Button  mnemonicParsing="false" onAction="#actionAdd" styleClass="login-button" text="Add" />
+                        <Button  mnemonicParsing="false" onAction="#actionChange" styleClass="login-button" text="Change" />
+                        <Button  mnemonicParsing="false" onAction="#actionDelete" prefHeight="26.0" prefWidth="90.0" styleClass="login-button" text="Delete" />
+                    </buttons>
+                </ButtonBar>
             </children>
         </AnchorPane>
     </children>

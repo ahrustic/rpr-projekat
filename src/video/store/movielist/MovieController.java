@@ -96,7 +96,7 @@ public class MovieController implements Initializable {
                 }
             } );
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
 
@@ -124,7 +124,7 @@ public class MovieController implements Initializable {
                 }
             } );
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
 
@@ -171,7 +171,7 @@ public class MovieController implements Initializable {
                 }
             } );
         } catch (IOException e) {
-             e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
@@ -202,7 +202,7 @@ public class MovieController implements Initializable {
                 }
             } );
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -233,7 +233,7 @@ public class MovieController implements Initializable {
                 }
             } );
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
 

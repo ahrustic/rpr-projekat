@@ -66,15 +66,6 @@ class VideoStoreDAOTest {
         assertEquals(5, movies.get(0).getQuantity());
     }
 
-   /* @Test
-    void getIssued() {
-        initDb();
-        ArrayList<Issued> issued = dao.issued();
-        assertEquals(1, issued.size());
-        assertEquals(1, issued.get(0).getMember().getId());
-        assertEquals(1, issued.get(1).getMovie().getId());
-    }*/
-
 
 }
 

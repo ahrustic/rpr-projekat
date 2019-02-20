@@ -187,7 +187,7 @@ public class VideoStoreDAO {
                 rezultat.add(movie);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return rezultat;
     }
@@ -201,7 +201,7 @@ public class VideoStoreDAO {
                 rezultat.add(member);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         return rezultat;
     }
@@ -215,7 +215,7 @@ public class VideoStoreDAO {
                 result.add(issued);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         return result;
     }
@@ -262,7 +262,7 @@ public class VideoStoreDAO {
             addMemberQuery.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -284,7 +284,7 @@ public class VideoStoreDAO {
             addMovieQuery.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -304,7 +304,7 @@ public class VideoStoreDAO {
             addIssuedQuery.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -409,7 +409,7 @@ public class VideoStoreDAO {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -425,13 +425,8 @@ public class VideoStoreDAO {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
-
 }
-
-//todo omoguciti dodavanje i izmjenu
-//todo provjeriti kako rijesti problem sa datumom
-//todo napisati nekoliko osnovnih testova

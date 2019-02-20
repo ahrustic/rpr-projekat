@@ -1,5 +1,6 @@
 package video.store.find;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,8 +26,7 @@ public class FindMovieProductionController {
     }
 
     public void clickCancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) find.getScene().getWindow();
-        stage.close();
+        Platform.exit();
     }
 
 
